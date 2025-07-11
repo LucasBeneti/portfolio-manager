@@ -6,8 +6,8 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import type { ControllerRenderProps } from 'react-hook-form';
+} from "@/components/ui/select";
+import type { ControllerRenderProps } from "react-hook-form";
 
 export function CategorySelect({
   field,
@@ -20,25 +20,25 @@ export function CategorySelect({
       currentValue: number;
       grade: number;
     },
-    'category'
+    "category"
   >;
 }) {
   return (
     <Select onValueChange={field.onChange} value={field.value}>
-      <SelectTrigger className='w-[180px]'>
-        <SelectValue placeholder='Select a fruit' />
+      <SelectTrigger className="w-[180px]">
+        <SelectValue placeholder="Select a fruit" />
       </SelectTrigger>
-      <SelectContent>
+      <SelectContent className="dark">
         <SelectGroup>
           <SelectLabel>Categoria</SelectLabel>
-          <SelectItem value='fixed-income-br'>Renda Fixa</SelectItem>
-          <SelectItem value='fixed-income-us'>
+          <SelectItem value="fixed-income-br">Renda Fixa</SelectItem>
+          <SelectItem value="fixed-income-us">
             Renda Fixa Internacional
           </SelectItem>
-          <SelectItem value='stocks-br'>Ações Brasileiras</SelectItem>
-          <SelectItem value='stocks-us'>Ações Brasileiras</SelectItem>
-          <SelectItem value='fii'>FII</SelectItem>
-          <SelectItem value='crypto'>Criptomoedas</SelectItem>
+          <SelectItem value="stocks-br">Ações Brasileiras</SelectItem>
+          <SelectItem value="stocks-us">Ações Brasileiras</SelectItem>
+          <SelectItem value="fii">FII</SelectItem>
+          <SelectItem value="crypto">Criptomoedas</SelectItem>
         </SelectGroup>
       </SelectContent>
     </Select>
