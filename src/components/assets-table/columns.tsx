@@ -9,6 +9,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { useAssetsActions } from '@/hooks/use-assets-actions';
 
 export type Payment = {
   id: string;
@@ -42,8 +43,8 @@ export const columns: ColumnDef<Payment>[] = [
   {
     id: 'actions',
     cell: ({ row }) => {
-      const payment = row.original;
-
+      const asset = row.original;
+      const { handleDeleteAsset, handleEditAsset } = useAssetsActions();
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -53,15 +54,14 @@ export const columns: ColumnDef<Payment>[] = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align='end'>
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(payment.id)}
-            >
-              Copy payment ID
+            <DropdownMenuLabel>Ações</DropdownMenuLabel>
+            <DropdownMenuItem onClick={handleEditAsset}>
+              Editar
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>View customer</DropdownMenuItem>
-            <DropdownMenuItem>View payment details</DropdownMenuItem>
+            <DropdownMenuItem onClick={handleDeleteAsset}>
+              Excluir
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );

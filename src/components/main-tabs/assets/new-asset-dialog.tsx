@@ -7,7 +7,7 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { AssetsForm } from '@/components/forms/test-form';
+import { AssetsForm } from '@/components/forms/assets-form';
 
 export function NewAssetDialog() {
   return (
