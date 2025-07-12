@@ -22,19 +22,31 @@ const formSchema = z.object({
   grade: z.number(),
 });
 
-export function AssetsForm() {
-  const form = useForm<z.infer<typeof formSchema>>({
+type FormType = z.infer<typeof formSchema>;
+
+type AssetsFormProps = {
+  initialData?: FormType;
+};
+
+export function AssetsForm(props: AssetsFormProps) {
+  const { initialData } = props;
+  const form = useForm<FormType>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      category: "",
-      name: "",
-      quantity: 0,
-      currentValue: 0,
-      grade: 0,
-    },
+    defaultValues: getInitialValues(),
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  function getInitialValues() {
+    return initialData
+      ? initialData
+      : {
+          category: "",
+          name: "",
+          quantity: 0,
+          currentValue: 0,
+          grade: 0,
+        };
+  }
+  function onSubmit(values: FormType) {
     console.log(values);
   }
 
@@ -50,7 +62,7 @@ export function AssetsForm() {
                 <FormItem className="">
                   <FormLabel className="dark:text-white">Categoria</FormLabel>
                   <FormControl>
-                    <CategorySelect field={field} />
+                    <CategorySelect field={field} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

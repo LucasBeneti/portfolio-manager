@@ -1,6 +1,6 @@
-import { type ColumnDef } from '@tanstack/react-table';
-import { MoreHorizontal } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { type ColumnDef } from "@tanstack/react-table";
+import { MoreHorizontal } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -8,54 +8,66 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { useAssetsActions } from '@/hooks/use-assets-actions';
+} from "@/components/ui/dropdown-menu";
+import { useAssetsActions } from "@/hooks/use-assets-actions";
+import { type AssetData } from "../main-tabs/content/assets/asset-dialog";
 
-export type Payment = {
-  id: string;
-  amount: number;
-  status: 'pending' | 'processing' | 'success' | 'failed';
-  email: string;
-};
-
-export const columns: ColumnDef<Payment>[] = [
+export const columns: ColumnDef<AssetData>[] = [
   {
-    accessorKey: 'status',
-    header: 'Status',
+    accessorKey: "category",
+    header: "Categoria",
   },
   {
-    accessorKey: 'email',
-    header: 'Email',
+    accessorKey: "name",
+    header: "Nome",
   },
   {
-    accessorKey: 'amount',
-    header: () => <div className='text-right'>Amount</div>,
+    accessorKey: "currentValue",
+    header: () => <div className="text-right">Valor atual</div>,
     cell: ({ row }) => {
-      const amount = parseFloat(row.getValue('amount'));
-      const formatted = new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD',
-      }).format(amount);
+      const currentValue = parseFloat(row.getValue("currentValue"));
+      const formatted = new Intl.NumberFormat("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+      }).format(currentValue);
 
-      return <div className='text-right font-medium'>{formatted}</div>;
+      return <div className="text-right font-medium">{formatted}</div>;
     },
   },
   {
-    id: 'actions',
+    accessorKey: "quantity",
+    header: () => <div className="text-right">Quantidade</div>,
+    cell: ({ row }) => {
+      const currentValue = parseFloat(row.getValue("quantity"));
+
+      return <div className="text-right font-medium">{currentValue}</div>;
+    },
+  },
+  {
+    accessorKey: "grade",
+    header: "Nota",
+    cell: ({ row }) => {
+      const grade = parseFloat(row.getValue("grade"));
+
+      return <div className="text-right font-medium">{grade}</div>;
+    },
+  },
+  {
+    id: "actions",
     cell: ({ row }) => {
       const asset = row.original;
       const { handleDeleteAsset, handleEditAsset } = useAssetsActions();
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant='ghost' className='h-8 w-8 p-0'>
-              <span className='sr-only'>Open menu</span>
-              <MoreHorizontal className='h-4 w-4' />
+            <Button variant="ghost" className="h-8 w-8 p-0">
+              <span className="sr-only">Open menu</span>
+              <MoreHorizontal className="h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align='end'>
+          <DropdownMenuContent align="end">
             <DropdownMenuLabel>Ações</DropdownMenuLabel>
-            <DropdownMenuItem onClick={handleEditAsset}>
+            <DropdownMenuItem onClick={() => handleEditAsset(asset)}>
               Editar
             </DropdownMenuItem>
             <DropdownMenuSeparator />

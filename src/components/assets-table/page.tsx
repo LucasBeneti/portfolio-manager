@@ -1,43 +1,43 @@
-import { columns, type Payment } from "./columns";
+import { columns } from "./columns";
 import { DataTable } from "./data-table";
+import { type AssetData } from "../main-tabs/content/assets/asset-dialog";
 
-function getData(): Payment[] {
+function getData(): AssetData[] {
   return [
     {
-      id: "728ed52f",
-      amount: 100,
-      status: "pending",
-      email: "m@example.com",
+      category: "renda fixa",
+      name: "CDB CDI% BTG Pactual",
+      quantity: 1,
+      currentValue: 7923.33,
+      grade: 7,
     },
     {
-      id: "728ed52f",
-      amount: 100,
-      status: "pending",
-      email: "m@example.com",
+      category: "renda fixa",
+      name: "CDB CDI% BTG Pactual",
+      quantity: 1,
+      currentValue: 7923.33,
+      grade: 7,
     },
     {
-      id: "728ed52f",
-      amount: 100,
-      status: "pending",
-      email: "m@example.com",
+      category: "renda fixa",
+      name: "CDB CDI% BTG Pactual",
+      quantity: 1,
+      currentValue: 7923.33,
+      grade: 7,
     },
     {
-      id: "728ed52f",
-      amount: 100,
-      status: "pending",
-      email: "m@example.com",
+      category: "renda fixa",
+      name: "CDB CDI% BTG Pactual",
+      quantity: 1,
+      currentValue: 7923.33,
+      grade: 7,
     },
     {
-      id: "728ed52f",
-      amount: 100,
-      status: "pending",
-      email: "m@example.com",
-    },
-    {
-      id: "728ed52f",
-      amount: 100,
-      status: "pending",
-      email: "m@example.com",
+      category: "renda fixa",
+      name: "CDB CDI% BTG Pactual",
+      quantity: 1,
+      currentValue: 7923.33,
+      grade: 7,
     },
   ];
 }

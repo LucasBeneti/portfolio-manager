@@ -28,7 +28,7 @@ export function CategorySelect({
       <SelectTrigger className="w-[180px]">
         <SelectValue placeholder="Select a fruit" />
       </SelectTrigger>
-      <SelectContent className="dark">
+      <SelectContent>
         <SelectGroup>
           <SelectLabel>Categoria</SelectLabel>
           <SelectItem value="fixed-income-br">Renda Fixa</SelectItem>
