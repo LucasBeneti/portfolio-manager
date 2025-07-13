@@ -5,35 +5,42 @@ import { type AssetData } from "../main-tabs/content/assets/asset-dialog";
 function getData(): AssetData[] {
   return [
     {
-      category: "renda fixa",
+      category: "fixed-income-br",
       name: "CDB CDI% BTG Pactual",
       quantity: 1,
       currentValue: 7923.33,
       grade: 7,
     },
     {
-      category: "renda fixa",
+      category: "fixed-income-us",
       name: "CDB CDI% BTG Pactual",
       quantity: 1,
       currentValue: 7923.33,
       grade: 7,
     },
     {
-      category: "renda fixa",
+      category: "stocks-br",
       name: "CDB CDI% BTG Pactual",
       quantity: 1,
       currentValue: 7923.33,
       grade: 7,
     },
     {
-      category: "renda fixa",
+      category: "stocks-us",
       name: "CDB CDI% BTG Pactual",
       quantity: 1,
       currentValue: 7923.33,
       grade: 7,
     },
     {
-      category: "renda fixa",
+      category: "fii",
+      name: "CDB CDI% BTG Pactual",
+      quantity: 1,
+      currentValue: 7923.33,
+      grade: 7,
+    },
+    {
+      category: "crypto",
       name: "CDB CDI% BTG Pactual",
       quantity: 1,
       currentValue: 7923.33,

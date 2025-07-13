@@ -11,11 +11,18 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useAssetsActions } from "@/hooks/use-assets-actions";
 import { type AssetData } from "../main-tabs/content/assets/asset-dialog";
+import { CategoryBadge } from "../category-badge/category-badge";
+import type { Category } from "../interfaces/category";
 
 export const columns: ColumnDef<AssetData>[] = [
   {
     accessorKey: "category",
     header: "Categoria",
+    cell: ({ row }) => {
+      const category = row.getValue("category") as Category;
+
+      return <CategoryBadge name={category} />;
+    },
   },
   {
     accessorKey: "name",
@@ -45,7 +52,7 @@ export const columns: ColumnDef<AssetData>[] = [
   },
   {
     accessorKey: "grade",
-    header: "Nota",
+    header: () => <div className="text-right">Nota</div>,
     cell: ({ row }) => {
       const grade = parseFloat(row.getValue("grade"));
 

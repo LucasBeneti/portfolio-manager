@@ -1,8 +1,9 @@
 import { AssetsForm } from "@/components/forms/assets-form";
 import { CustomDialog } from "@/components/custom-dialog/custom-dialog";
+import { type Category } from "@/components/interfaces/category";
 
 export type AssetData = {
-  category: string;
+  category: Category;
   name: string;
   quantity: number;
   currentValue: number;
