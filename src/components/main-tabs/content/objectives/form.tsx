@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { CATEGORY_BADGE_COLOR } from '@/contants/category';
 import type { Category } from '@/components/interfaces/category';
+import { useMemo } from 'react';
 
 type SubmitData = {
   'fixed-income-br': Array<number>;
@@ -32,6 +33,15 @@ export function ObjectivesForm() {
 
   const watchedValues = watch();
 
+  const totalAllocation = useMemo(() => {
+    const sum = Object.values(watchedValues).reduce((acc, curr) => {
+      const currentValue = curr[0];
+      return acc + currentValue;
+    }, 0);
+
+    return sum;
+  }, [watchedValues]);
+
   function handleResetObjectives() {
     console.log('resetting to prev objectives');
   }
@@ -43,13 +53,30 @@ export function ObjectivesForm() {
         O objetivo aqui é setar as % de quanto e do que ela será composta.
       </p>
 
+      <section className='flex gap-6'>
+        <p className='text-xl font-bold dark:text-white'>Total alocado</p>
+        <p
+          className={`text-xl font-bold ${
+            totalAllocation <= 100 ? 'text-white' : 'text-red-400'
+          }`}
+        >
+          {totalAllocation}%
+        </p>
+        {totalAllocation > 100 && (
+          <p className='text-red-400'>Alocação não deve ultrapassar 100%.</p>
+        )}
+      </section>
+
       <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-4'>
         {Object.entries(CATEGORY_BADGE_COLOR).map((el, index) => {
           const [key, value] = el;
           return (
-            <div className='space-y-2 dark:text-white' key={`${key}_${index}`}>
+            <div
+              className='dark:text-white flex justify-between w-full'
+              key={`${key}_${index}`}
+            >
               <Label htmlFor={key}>
-                {value.title}: %{watchedValues[key as Category][0]}
+                {value.title}: {watchedValues[key as Category][0]}%
               </Label>
               <Controller
                 name={key as Category}
@@ -62,7 +89,7 @@ export function ObjectivesForm() {
                     step={1}
                     value={field.value}
                     onValueChange={field.onChange}
-                    className='w-full dark'
+                    className='max-w-[500px] dark'
                   />
                 )}
               />
