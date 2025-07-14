@@ -1,4 +1,4 @@
-import type { Category } from '@/components/interfaces/category';
+import type { Category } from '@/interfaces/category';
 export type ObjectContent = {
   key: Category;
   title: string;

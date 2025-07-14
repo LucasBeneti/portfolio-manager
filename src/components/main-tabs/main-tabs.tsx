@@ -5,7 +5,7 @@ import { ObjectivesContent } from './content/objectives/content';
 export function MainTabs() {
   return (
     <DialogProvider>
-      <Tabs defaultValue='assets' className='w-[700px]'>
+      <Tabs defaultValue='objectives' className='w-[700px]'>
         <TabsList>
           <TabsTrigger value='assets'>Ativos</TabsTrigger>
           <TabsTrigger value='objectives'>Metas</TabsTrigger>

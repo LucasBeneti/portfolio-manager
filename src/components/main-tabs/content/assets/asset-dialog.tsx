@@ -1,6 +1,6 @@
-import { AssetsForm } from "@/components/forms/assets-form";
-import { CustomDialog } from "@/components/custom-dialog/custom-dialog";
-import { type Category } from "@/components/interfaces/category";
+import { AssetsForm } from '@/components/forms/assets-form';
+import { CustomDialog } from '@/components/custom-dialog/custom-dialog';
+import { type Category } from '@/interfaces/category';
 
 export type AssetData = {
   category: Category;
@@ -23,8 +23,8 @@ export function AssetDialog(props: AssetDialogProps) {
     <CustomDialog
       isOpen={isOpen}
       onClose={onClose}
-      title="Novo ativo"
-      description="Adicione aqui um novo ativo para a sua carteira. Dependendo da nota, ele poderá ser considerado em um novo aporte."
+      title='Novo ativo'
+      description='Adicione aqui um novo ativo para a sua carteira. Dependendo da nota, ele poderá ser considerado em um novo aporte.'
     >
       <AssetsForm initialData={props.initialData} />
     </CustomDialog>

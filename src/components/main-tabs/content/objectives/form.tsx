@@ -3,8 +3,11 @@ import { Slider } from '@/components/ui/slider';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { CATEGORY_BADGE_COLOR } from '@/contants/category';
-import type { Category } from '@/components/interfaces/category';
-import { useMemo } from 'react';
+import type { Category } from '@/interfaces/category';
+import { useEffect, useMemo } from 'react';
+import { useUserInformation } from '@/context/UserInformationContext';
+import { formatUserObjectivesToSlider } from '@/utils/data';
+import type { UserObjectives } from '@/interfaces/objectives';
 
 type SubmitData = {
   'fixed-income-br': Array<number>;
@@ -16,7 +19,8 @@ type SubmitData = {
 };
 
 export function ObjectivesForm() {
-  const { control, handleSubmit, watch } = useForm({
+  const { handleAddUserObjectives, objectives } = useUserInformation();
+  const { control, handleSubmit, watch, reset } = useForm({
     defaultValues: {
       'fixed-income-br': [0],
       'fixed-income-us': [0],
@@ -27,8 +31,27 @@ export function ObjectivesForm() {
     },
   });
 
+  useEffect(() => {
+    if (objectives) {
+      console.log('objectives', objectives);
+      const formattedValues = formatUserObjectivesToSlider(objectives);
+      reset(formattedValues);
+    }
+  }, [objectives, reset]);
+
   function onSubmit(data: SubmitData) {
-    console.log('onSubmit', data);
+    if (!isTotalAllocationInvalid) {
+      const mappedAllocation = Object.entries(data).reduce((acc, curr) => {
+        const key = curr[0];
+        const value = curr[1];
+        return {
+          ...acc,
+          [key]: value[0],
+        };
+      }, {} as UserObjectives);
+
+      handleAddUserObjectives(mappedAllocation);
+    }
   }
 
   const watchedValues = watch();
@@ -41,6 +64,8 @@ export function ObjectivesForm() {
 
     return sum;
   }, [watchedValues]);
+
+  const isTotalAllocationInvalid = totalAllocation > 100;
 
   function handleResetObjectives() {
     console.log('resetting to prev objectives');
@@ -57,12 +82,12 @@ export function ObjectivesForm() {
         <p className='text-xl font-bold dark:text-white'>Total alocado</p>
         <p
           className={`text-xl font-bold ${
-            totalAllocation <= 100 ? 'text-white' : 'text-red-400'
+            isTotalAllocationInvalid ? 'text-red-400' : 'text-white'
           }`}
         >
           {totalAllocation}%
         </p>
-        {totalAllocation > 100 && (
+        {isTotalAllocationInvalid && (
           <p className='text-red-400'>Alocação não deve ultrapassar 100%.</p>
         )}
       </section>
@@ -101,7 +126,9 @@ export function ObjectivesForm() {
           <Button onClick={handleResetObjectives} variant='secondary'>
             Cancelar
           </Button>
-          <Button type='submit'>Confirmar</Button>
+          <Button type='submit' disabled={isTotalAllocationInvalid}>
+            Confirmar
+          </Button>
         </section>
       </form>
     </section>
