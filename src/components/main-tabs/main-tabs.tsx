@@ -2,6 +2,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { AssetsContent } from './content/assets/assets-content';
 import { DialogProvider } from '@/context/dialog/DialogContext';
 import { ObjectivesContent } from './content/objectives/content';
+import { NewInvestimentContent } from './content/new-investiment/content';
 export function MainTabs() {
   return (
     <DialogProvider>
@@ -18,7 +19,7 @@ export function MainTabs() {
           <ObjectivesContent />
         </TabsContent>
         <TabsContent value='new-investment'>
-          aqui vai a parte de metas
+          <NewInvestimentContent />
         </TabsContent>
       </Tabs>
     </DialogProvider>

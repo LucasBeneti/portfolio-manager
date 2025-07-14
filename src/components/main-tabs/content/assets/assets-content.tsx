@@ -1,4 +1,4 @@
-import DemoPage from '@/components/assets-table/page';
+import DemoPage from '@/components/tables/assets/page';
 import { Button } from '@/components/ui/button';
 import { useDialogContext } from '@/context/dialog/DialogContext';
 
