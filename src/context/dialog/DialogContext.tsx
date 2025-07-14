@@ -3,12 +3,12 @@ import {
   useContext,
   useState,
   type PropsWithChildren,
-} from "react";
-import { AssetDialog } from "@/components/main-tabs/content/assets/asset-dialog";
-import { type AssetData } from "@/components/main-tabs/content/assets/asset-dialog";
+} from 'react';
+import { AssetDialog } from '@/components/main-tabs/content/assets/asset-dialog';
+import type { Asset } from '@/interfaces/assets';
 
 type HandleOpenNewAssetDialogParams = {
-  assetData?: AssetData;
+  assetData?: Asset;
 };
 
 type DialogContextValue = {
@@ -20,10 +20,9 @@ const DialogContext = createContext<DialogContextValue | null>(null);
 
 export function DialogProvider({ children }: PropsWithChildren) {
   const [openDialog, setOpenDialog] = useState<boolean>(false);
-  const [editingData, setEditingData] = useState<AssetData>();
+  const [editingData, setEditingData] = useState<Asset>();
 
   function handleOpenNewAssetDialog(params?: HandleOpenNewAssetDialogParams) {
-    console.log("assetData", params?.assetData);
     if (params?.assetData) {
       setEditingData(params?.assetData);
     }
@@ -55,7 +54,7 @@ export function useDialogContext() {
   const context = useContext(DialogContext);
   if (!context)
     throw new Error(
-      "To use this hook, the component should be children of the DialogProvider."
+      'To use this hook, the component should be children of the DialogProvider.'
     );
 
   return context;

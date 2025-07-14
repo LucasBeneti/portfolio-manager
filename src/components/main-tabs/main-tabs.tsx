@@ -1,11 +1,11 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { AssetsContent } from './content/assets/assets-content';
-import { DialogProvider } from '@/context/DialogContext';
+import { DialogProvider } from '@/context/dialog/DialogContext';
 import { ObjectivesContent } from './content/objectives/content';
 export function MainTabs() {
   return (
     <DialogProvider>
-      <Tabs defaultValue='objectives' className='w-[700px]'>
+      <Tabs defaultValue='assets' className='w-[700px]'>
         <TabsList>
           <TabsTrigger value='assets'>Ativos</TabsTrigger>
           <TabsTrigger value='objectives'>Metas</TabsTrigger>

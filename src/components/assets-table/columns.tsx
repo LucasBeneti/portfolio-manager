@@ -10,11 +10,11 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useAssetsActions } from '@/hooks/use-assets-actions';
-import { type AssetData } from '../main-tabs/content/assets/asset-dialog';
+import type { Asset } from '@/interfaces/assets';
 import { CategoryBadge } from '../category-badge/category-badge';
-import type { Category } from '../../interfaces/category';
+import type { Category } from '../../interfaces/assets';
 
-export const columns: ColumnDef<AssetData>[] = [
+export const columns: ColumnDef<Asset>[] = [
   {
     accessorKey: 'category',
     header: 'Categoria',

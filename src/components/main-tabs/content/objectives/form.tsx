@@ -3,9 +3,9 @@ import { Slider } from '@/components/ui/slider';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { CATEGORY_BADGE_COLOR } from '@/contants/category';
-import type { Category } from '@/interfaces/category';
+import type { Category } from '@/interfaces/assets';
 import { useEffect, useMemo } from 'react';
-import { useUserInformation } from '@/context/UserInformationContext';
+import { useUserInformation } from '@/context/user-information';
 import { formatUserObjectivesToSlider } from '@/utils/data';
 import type { UserObjectives } from '@/interfaces/objectives';
 
