@@ -1,15 +1,15 @@
-import * as React from "react";
-import type { AssetData } from "@/components/main-tabs/content/assets/asset-dialog";
+import * as React from 'react';
+import type { Asset } from '@/interfaces/assets';
 
 type OpenNewAssetDialogParams = {
-  assetData?: AssetData;
+  assetData?: Asset;
 };
 
 export function useNewAssetDialog() {
   const [openDialog, setOpenDialog] = React.useState<boolean>(false);
 
   function handleOpenNewAssetDialog(params?: OpenNewAssetDialogParams) {
-    console.log("assetData", params?.assetData);
+    console.log('assetData', params?.assetData);
     setOpenDialog(true);
   }
 
