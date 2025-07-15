@@ -10,7 +10,7 @@ type AssetDialogProps = {
 };
 
 export function AssetDialog(props: AssetDialogProps) {
-  const { isOpen, onClose } = props;
+  const { isOpen, onClose, isEdit } = props;
   return (
     <CustomDialog
       isOpen={isOpen}
@@ -18,7 +18,7 @@ export function AssetDialog(props: AssetDialogProps) {
       title='Novo ativo'
       description='Adicione aqui um novo ativo para a sua carteira. Dependendo da nota, ele poderá ser considerado em um novo aporte.'
     >
-      <AssetsForm initialData={props.initialData} />
+      <AssetsForm initialData={props.initialData} isEdit={isEdit} />
     </CustomDialog>
   );
 }

@@ -9,6 +9,7 @@ import type { Asset } from '@/interfaces/assets';
 
 type HandleOpenNewAssetDialogParams = {
   assetData?: Asset;
+  isEdit?: boolean;
 };
 
 type DialogContextValue = {
@@ -21,15 +22,18 @@ const DialogContext = createContext<DialogContextValue | null>(null);
 export function DialogProvider({ children }: PropsWithChildren) {
   const [openDialog, setOpenDialog] = useState<boolean>(false);
   const [editingData, setEditingData] = useState<Asset>();
+  const [isEditing, setIsEditing] = useState<boolean>(false);
 
   function handleOpenNewAssetDialog(params?: HandleOpenNewAssetDialogParams) {
     if (params?.assetData) {
       setEditingData(params?.assetData);
     }
+    setIsEditing(params?.isEdit || false);
     setOpenDialog(true);
   }
 
   function closeAssetDialog() {
+    setIsEditing(false);
     setOpenDialog(false);
     setEditingData(undefined);
   }
@@ -45,6 +49,7 @@ export function DialogProvider({ children }: PropsWithChildren) {
         isOpen={openDialog}
         onClose={closeAssetDialog}
         initialData={editingData}
+        isEdit={isEditing}
       />
     </DialogContext.Provider>
   );

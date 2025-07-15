@@ -16,6 +16,10 @@ import type { Category } from '../../../interfaces/assets';
 
 export const columns: ColumnDef<Asset>[] = [
   {
+    accessorKey: 'id',
+    header: 'ID',
+  },
+  {
     accessorKey: 'category',
     header: 'Categoria',
     cell: ({ row }) => {
@@ -78,7 +82,7 @@ export const columns: ColumnDef<Asset>[] = [
               Editar
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={handleDeleteAsset}>
+            <DropdownMenuItem onClick={() => handleDeleteAsset(asset.id)}>
               Excluir
             </DropdownMenuItem>
           </DropdownMenuContent>

@@ -14,8 +14,10 @@ import { Input } from '@/components/ui/input';
 import { DialogClose, DialogFooter } from '../ui/dialog';
 import { CategorySelect } from './category-select/category-select';
 import { useUserInformation } from '@/context/user-information';
+import type { Asset } from '@/interfaces/assets';
 
 const formSchema = z.object({
+  id: z.string('').optional(),
   category: z.string(),
   name: z.string().min(2).max(40),
   quantity: z.number(),
@@ -27,15 +29,16 @@ type FormType = z.infer<typeof formSchema>;
 
 type AssetsFormProps = {
   initialData?: FormType;
+  isEdit?: boolean;
 };
 
 export function AssetsForm(props: AssetsFormProps) {
-  const { initialData } = props;
+  const { initialData, isEdit = false } = props;
   const form = useForm<FormType>({
     resolver: zodResolver(formSchema),
     defaultValues: getInitialValues(),
   });
-  const { handleAddUserAsset } = useUserInformation();
+  const { handleAddUserAsset, handleEditUserAsset } = useUserInformation();
 
   function getInitialValues() {
     return initialData
@@ -48,9 +51,18 @@ export function AssetsForm(props: AssetsFormProps) {
           grade: 0,
         };
   }
-  function onSubmit(values: FormType) {
+  function onSubmit(values: Partial<FormType>) {
     console.log(values);
-    handleAddUserAsset(values);
+    console.log('onSubmit isEdit', isEdit);
+    if (isEdit) {
+      handleEditUserAsset(values as Asset);
+    } else {
+      const newAssetData = {
+        ...values,
+        id: crypto.randomUUID(),
+      };
+      handleAddUserAsset(newAssetData as FormType);
+    }
   }
 
   return (
