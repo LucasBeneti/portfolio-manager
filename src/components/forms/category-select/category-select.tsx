@@ -14,6 +14,7 @@ export function CategorySelect({
 }: {
   field: ControllerRenderProps<
     {
+      id: string;
       category: string;
       name: string;
       quantity: number;
@@ -36,7 +37,7 @@ export function CategorySelect({
             Renda Fixa Internacional
           </SelectItem>
           <SelectItem value='stocks-br'>Ações Brasileiras</SelectItem>
-          <SelectItem value='stocks-us'>Ações Brasileiras</SelectItem>
+          <SelectItem value='stocks-us'>Ações Americanas</SelectItem>
           <SelectItem value='fii'>FII</SelectItem>
           <SelectItem value='crypto'>Criptomoedas</SelectItem>
         </SelectGroup>

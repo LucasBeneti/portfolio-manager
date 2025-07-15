@@ -1,4 +1,6 @@
 import type { ColumnDef } from '@tanstack/react-table';
+import { CategoryBadge } from '@/components/category-badge/category-badge';
+import type { Category } from '@/interfaces/assets';
 
 // type NewInvestimentColumns
 
@@ -17,10 +19,10 @@ export type InvestmentData = {
 export const columns: ColumnDef<InvestmentData>[] = [
   {
     accessorKey: 'category',
-    header: 'Category',
+    header: 'Categoria',
     cell: ({ row }) => {
       const category = row.getValue('category') as string;
-      return <div className='font-medium'>{category}</div>;
+      return <CategoryBadge name={category as Category} />;
     },
   },
   {
@@ -28,19 +30,25 @@ export const columns: ColumnDef<InvestmentData>[] = [
     header: 'Ticker',
     cell: ({ row }) => {
       const ticker = row.getValue('ticker') as string;
-      return <div className='font-mono uppercase'>{ticker}</div>;
+      return (
+        <div className='font-mono uppercase max-w-24 overflow-hidden text-ellipsis'>
+          {ticker}
+        </div>
+      );
     },
   },
   {
     accessorKey: 'currentAmount',
-    header: 'Current Amount',
+    header: () => (
+      <div className='max-w-24 text-wrap text-center'>Atual ($)</div>
+    ),
     cell: ({ row }) => {
       const amount = row.getValue('currentAmount') as number;
       return (
         <div className='text-right'>
-          {new Intl.NumberFormat('en-US', {
+          {new Intl.NumberFormat('pt-BR', {
             style: 'currency',
-            currency: 'USD',
+            currency: 'BRL',
           }).format(amount)}
         </div>
       );
@@ -48,14 +56,16 @@ export const columns: ColumnDef<InvestmentData>[] = [
   },
   {
     accessorKey: 'currentPrice',
-    header: 'Current Price',
+    header: () => (
+      <div className='max-w-24 text-wrap text-center'>Preço atual ($)</div>
+    ),
     cell: ({ row }) => {
       const price = row.getValue('currentPrice') as number;
       return (
         <div className='text-right'>
-          {new Intl.NumberFormat('en-US', {
+          {new Intl.NumberFormat('pt-BR', {
             style: 'currency',
-            currency: 'USD',
+            currency: 'BRL',
           }).format(price)}
         </div>
       );
@@ -85,14 +95,18 @@ export const columns: ColumnDef<InvestmentData>[] = [
   },
   {
     accessorKey: 'suggestedInvestimentAmount',
-    header: 'Suggested Investment',
+    header: () => (
+      <div className='max-w-24 text-wrap text-center'>
+        Sugestão de aporte ($)
+      </div>
+    ),
     cell: ({ row }) => {
       const amount = row.getValue('suggestedInvestimentAmount') as number;
       return (
         <div className='text-right'>
-          {new Intl.NumberFormat('en-US', {
+          {new Intl.NumberFormat('pt-BR', {
             style: 'currency',
-            currency: 'USD',
+            currency: 'BRL',
           }).format(amount)}
         </div>
       );
@@ -100,7 +114,11 @@ export const columns: ColumnDef<InvestmentData>[] = [
   },
   {
     accessorKey: 'suggestedAmountUnits',
-    header: 'Suggested Units',
+    header: () => (
+      <div className='max-w-24 text-wrap text-center'>
+        Sugestão de aporte (un.)
+      </div>
+    ),
     cell: ({ row }) => {
       const units = row.getValue('suggestedAmountUnits') as number;
       return (

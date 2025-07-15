@@ -33,6 +33,28 @@ export function UserInformationProvider(props: React.PropsWithChildren) {
     localStorage.setItem('userAssets', JSON.stringify(updatedAssets));
   }
 
+  function handleEditUserAsset(asset: Asset) {
+    console.log('asset to edit', asset);
+    const assetToEditIndex = userAssets.findIndex((a) => {
+      return a.id === asset.id;
+    });
+
+    console.log('assetToEditIndex', assetToEditIndex);
+
+    const newArray = userAssets;
+    newArray.splice(assetToEditIndex, 0, { ...asset });
+    console.log('newArray', newArray);
+    setUserAssets(newArray);
+    localStorage.setItem('userAssets', JSON.stringify(newArray));
+  }
+
+  function handleRemoveUserAsset(assetId: string) {
+    const updatedArr = userAssets.filter((a) => a.id !== assetId);
+
+    setUserAssets(updatedArr);
+    localStorage.setItem('userAssets', JSON.stringify(updatedArr));
+  }
+
   const { children } = props;
 
   const value = {
@@ -40,6 +62,8 @@ export function UserInformationProvider(props: React.PropsWithChildren) {
     assets: userAssets,
     handleAddUserObjectives,
     handleAddUserAsset,
+    handleEditUserAsset,
+    handleRemoveUserAsset,
   };
   return (
     <UserInformationContext.Provider value={value}>

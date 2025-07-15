@@ -18,7 +18,7 @@ import { type InvestmentData, columns } from './columns';
 // Dados de exemplo
 const sampleData: InvestmentData[] = [
   {
-    category: 'fixed-income',
+    category: 'fixed-income-br',
     ticker: 'TESOURO SELIC',
     currentAmount: 10000.0,
     currentPrice: 100.5,
@@ -149,14 +149,13 @@ export function InvestmentTable() {
         />
       </div>
 
-      {/* Tabela */}
-      <div className='rounded-md border'>
+      <div className='rounded-md border dark'>
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
-                  <TableHead key={header.id} className='font-semibold'>
+                  <TableHead key={header.id} className='font-semibold h-20'>
                     {header.isPlaceholder
                       ? null
                       : flexRender(
@@ -168,13 +167,13 @@ export function InvestmentTable() {
               </TableRow>
             ))}
           </TableHeader>
-          <TableBody>
+          <TableBody className='dark'>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && 'selected'}
-                  className='hover:bg-muted/50'
+                  className='dark hover:bg-muted/50 dark:text-white'
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
@@ -200,7 +199,6 @@ export function InvestmentTable() {
         </Table>
       </div>
 
-      {/* Informações da tabela */}
       <div className='flex items-center justify-between text-sm text-muted-foreground'>
         <div>
           {table.getFilteredRowModel().rows.length} de{' '}
