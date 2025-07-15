@@ -34,16 +34,12 @@ export function UserInformationProvider(props: React.PropsWithChildren) {
   }
 
   function handleEditUserAsset(asset: Asset) {
-    console.log('asset to edit', asset);
-    const assetToEditIndex = userAssets.findIndex((a) => {
-      return a.id === asset.id;
+    const newArray = userAssets.map((a) => {
+      if (a.id === asset.id) {
+        return asset;
+      }
+      return a;
     });
-
-    console.log('assetToEditIndex', assetToEditIndex);
-
-    const newArray = userAssets;
-    newArray.splice(assetToEditIndex, 0, { ...asset });
-    console.log('newArray', newArray);
     setUserAssets(newArray);
     localStorage.setItem('userAssets', JSON.stringify(newArray));
   }

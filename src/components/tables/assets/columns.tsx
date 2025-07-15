@@ -18,6 +18,7 @@ export const columns: ColumnDef<Asset>[] = [
   {
     accessorKey: 'id',
     header: 'ID',
+    enableHiding: false,
   },
   {
     accessorKey: 'category',

@@ -15,6 +15,7 @@ type HandleOpenNewAssetDialogParams = {
 type DialogContextValue = {
   openDialog: boolean;
   handleOpenNewAssetDialog: (d?: any) => void;
+  closeAssetDialog: () => void;
 };
 
 const DialogContext = createContext<DialogContextValue | null>(null);
@@ -40,6 +41,7 @@ export function DialogProvider({ children }: PropsWithChildren) {
 
   const value = {
     handleOpenNewAssetDialog,
+    closeAssetDialog,
     openDialog,
   };
   return (

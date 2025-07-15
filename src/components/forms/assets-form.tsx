@@ -15,10 +15,11 @@ import { DialogClose, DialogFooter } from '../ui/dialog';
 import { CategorySelect } from './category-select/category-select';
 import { useUserInformation } from '@/context/user-information';
 import type { Asset } from '@/interfaces/assets';
+import { useDialogContext } from '@/context/dialog/DialogContext';
 
 const formSchema = z.object({
-  id: z.string('').optional(),
-  category: z.string(),
+  id: z.string(),
+  category: z.string('Escolha categoria'),
   name: z.string().min(2).max(40),
   quantity: z.number(),
   currentValue: z.number(),
@@ -39,11 +40,13 @@ export function AssetsForm(props: AssetsFormProps) {
     defaultValues: getInitialValues(),
   });
   const { handleAddUserAsset, handleEditUserAsset } = useUserInformation();
+  const { closeAssetDialog } = useDialogContext();
 
   function getInitialValues() {
     return initialData
       ? initialData
       : {
+          id: '',
           category: '',
           name: '',
           quantity: 0,
@@ -52,16 +55,22 @@ export function AssetsForm(props: AssetsFormProps) {
         };
   }
   function onSubmit(values: Partial<FormType>) {
-    console.log(values);
-    console.log('onSubmit isEdit', isEdit);
-    if (isEdit) {
-      handleEditUserAsset(values as Asset);
-    } else {
-      const newAssetData = {
-        ...values,
-        id: crypto.randomUUID(),
-      };
-      handleAddUserAsset(newAssetData as FormType);
+    try {
+      if (isEdit) {
+        handleEditUserAsset(values as Asset);
+      } else {
+        const newAssetData = {
+          ...values,
+          id: crypto.randomUUID(),
+        };
+        handleAddUserAsset(newAssetData as Asset);
+      }
+      closeAssetDialog();
+    } catch (error) {
+      console.error(
+        'Something wen wrong while tryign to submit the form.',
+        error
+      );
     }
   }
 

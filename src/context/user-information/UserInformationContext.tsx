@@ -6,7 +6,7 @@ type UserInformationContextValue = {
   objectives?: UserObjectives;
   assets?: Array<Asset>;
   handleAddUserObjectives: (d: UserObjectives) => void;
-  handleAddUserAsset: (d: Omit<Asset, 'id'>) => void;
+  handleAddUserAsset: (d: Asset) => void;
   handleEditUserAsset: (d: Asset) => void;
   handleRemoveUserAsset: (id: string) => void;
 };
