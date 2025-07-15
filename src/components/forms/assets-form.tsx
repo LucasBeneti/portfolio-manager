@@ -16,10 +16,12 @@ import { CategorySelect } from './category-select/category-select';
 import { useUserInformation } from '@/context/user-information';
 import type { Asset } from '@/interfaces/assets';
 import { useDialogContext } from '@/context/dialog/DialogContext';
+import { categorySchema } from '@/schema/assets';
+import type { Category } from '@/interfaces/assets';
 
 const formSchema = z.object({
   id: z.string(),
-  category: z.string('Escolha categoria'),
+  category: categorySchema,
   name: z.string().min(2).max(40),
   quantity: z.number(),
   currentValue: z.number(),
@@ -47,7 +49,7 @@ export function AssetsForm(props: AssetsFormProps) {
       ? initialData
       : {
           id: '',
-          category: '',
+          category: 'fixed-income-br' as Category,
           name: '',
           quantity: 0,
           currentValue: 0,

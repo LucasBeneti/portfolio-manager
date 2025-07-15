@@ -73,7 +73,7 @@ export const columns: ColumnDef<InvestmentData>[] = [
   },
   {
     accessorKey: 'grade',
-    header: 'Grade',
+    header: 'Nota',
     cell: ({ row }) => {
       const grade = row.getValue('grade') as number;
       return (

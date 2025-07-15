@@ -7,6 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import type { Category } from '@/interfaces/assets';
 import type { ControllerRenderProps } from 'react-hook-form';
 
 export function CategorySelect({
@@ -15,7 +16,7 @@ export function CategorySelect({
   field: ControllerRenderProps<
     {
       id: string;
-      category: string;
+      category: Category;
       name: string;
       quantity: number;
       currentValue: number;
