@@ -5,7 +5,7 @@ export type Category = z.infer<typeof categorySchema>;
 
 export type Asset = {
   id: string;
-  category: string;
+  category: Category;
   name: string;
   quantity: number;
   currentValue: number;

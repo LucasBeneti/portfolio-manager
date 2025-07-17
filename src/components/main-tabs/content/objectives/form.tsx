@@ -33,7 +33,6 @@ export function ObjectivesForm() {
 
   useEffect(() => {
     if (objectives) {
-      console.log('objectives', objectives);
       const formattedValues = formatUserObjectivesToSlider(objectives);
       reset(formattedValues);
     }
