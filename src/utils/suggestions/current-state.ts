@@ -82,7 +82,6 @@ export function getSuggestions(
     fii: 0,
     crypto: 0,
   };
-  const finalSuggestions: Suggestion[] = [];
 
   // distribuicao do aporte entre as categorias com deficit
   for (const item of deficits) {
@@ -98,9 +97,9 @@ export function getSuggestions(
     }
   }
 
-  console.log('allocationByCategory', allocationByCategory);
-
   // distribuir aporte entre as categorias
+  const finalSuggestions: Suggestion[] = [];
+  let allocatedTotalFirstPass = 0;
   for (const cat in allocationByCategory) {
     const category = cat as Category;
     const allocatedValue = allocationByCategory[category];
@@ -109,7 +108,7 @@ export function getSuggestions(
     );
 
     const gradeSum = categoryAssets.reduce((sum, a) => sum + a.grade, 0);
-
+    // Até aqui é a primeira passada (?)
     if (gradeSum > 0) {
       for (const asset of categoryAssets) {
         const buyAmountForm = checkCategoryUnitSituation(asset.category);
@@ -123,12 +122,78 @@ export function getSuggestions(
         finalSuggestions.push({
           assetId: asset.id,
           assetName: asset.name,
+          assetCategory: asset.category,
           suggestedAmount: valueSuggestedAmount,
         });
+        allocatedTotalFirstPass += valueSuggestedAmount.amountToInvest; // novo da primeira passada
       }
     }
   }
 
+  const remaining = newInvestment - allocatedTotalFirstPass;
+  if (remaining >= 10) {
+    let currentRemains = remaining;
+
+    for (const itemDeficit of deficits) {
+      if (currentRemains < 10) break;
+
+      const currentCategory = itemDeficit.category;
+
+      const suggestedAssetsByCategory = finalSuggestions
+        .filter((s) => s.assetCategory === currentCategory)
+        .map((s) => ({
+          suggestion: s,
+          grade: assets.find((a) => a.id === s.assetId)?.grade || 0,
+        }))
+        .sort((a, b) => b.grade - a.grade);
+
+      for (const { suggestion } of suggestedAssetsByCategory) {
+        if (currentRemains < 10) break;
+
+        const originalAsset = assets.find((a) => a.id === suggestion.assetId);
+        if (!originalAsset) {
+          break;
+        }
+
+        const unitPrice = originalAsset.currentValue;
+        switch (suggestion.assetCategory) {
+          case 'stocks-br':
+          case 'fii': {
+            if (currentRemains >= unitPrice) {
+              const adittionalUnits = parseFloat(
+                Math.floor(currentRemains / unitPrice).toFixed(2)
+              );
+              const adittionalCost = adittionalUnits * unitPrice;
+
+              suggestion.suggestedAmount.quantity += adittionalUnits;
+              suggestion.suggestedAmount.amountToInvest += adittionalCost;
+              currentRemains -= adittionalCost;
+            }
+            break;
+          }
+          case 'crypto':
+          case 'stocks-us':
+          case 'fixed-income-us':
+          case 'fixed-income-br': {
+            const extraValue = currentRemains;
+            suggestion.suggestedAmount.amountToInvest += extraValue;
+            if (suggestion.assetCategory.includes('fixed')) {
+              suggestion.suggestedAmount.quantity =
+                suggestion.suggestedAmount.amountToInvest / unitPrice;
+            }
+
+            currentRemains = 0;
+            break;
+          }
+          default: {
+            break;
+          }
+        }
+      }
+    }
+  }
+
+  console.log('AFTER SECOND RUN => finalSuggestions', finalSuggestions);
   return finalSuggestions.filter((s) => {
     if (typeof s.suggestedAmount === 'number') {
       return s.suggestedAmount > 0;
@@ -191,7 +256,6 @@ export function mergeAssetsAndSuggestions(
   const finalMergedData = [];
   for (const suggestion of suggestions) {
     const currAsset = assets.find((a) => a.id === suggestion.assetId);
-    console.log('suggestions', suggestion);
     if (currAsset) {
       const dataPoint = {
         category: currAsset.category,

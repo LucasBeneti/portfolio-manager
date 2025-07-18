@@ -7,7 +7,7 @@ type CategoryBadgeProps = {
   color?: string;
 };
 export function CategoryBadge(props: CategoryBadgeProps) {
-  const { name, color } = props;
+  const { name } = props;
   const mappedAsset = CATEGORY_BADGE_COLOR[name];
   const assetTitle = mappedAsset?.title || name;
   const styling = mappedAsset?.styling || '';

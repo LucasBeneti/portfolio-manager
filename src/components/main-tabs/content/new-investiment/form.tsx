@@ -12,7 +12,6 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useState } from 'react';
-import { useNewInvestment } from '@/hooks/use-new-investment';
 import { useUserInformation } from '@/context/user-information';
 
 const formSchema = z.object({

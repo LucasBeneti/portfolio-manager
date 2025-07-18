@@ -1,6 +1,7 @@
 export type Suggestion = {
   assetId: string;
   assetName: string;
+  assetCategory: string;
   suggestedAmount: { quantity: number; amountToInvest: number };
 };
 
