@@ -1,19 +1,6 @@
 import type { ColumnDef } from '@tanstack/react-table';
 import { CategoryBadge } from '@/components/category-badge/category-badge';
-import type { Category } from '@/interfaces/assets';
-
-// type NewInvestimentColumns
-
-// Definindo o tipo de dados da tabela
-export type InvestmentData = {
-  category: string;
-  ticker: string;
-  currentAmount: number;
-  currentPrice: number;
-  grade: number;
-  suggestedInvestimentAmount: number;
-  suggestedAmountUnits: number;
-};
+import type { Category, InvestmentData } from '@/interfaces';
 
 // Configuração das colunas
 export const columns: ColumnDef<InvestmentData>[] = [
@@ -113,14 +100,14 @@ export const columns: ColumnDef<InvestmentData>[] = [
     },
   },
   {
-    accessorKey: 'suggestedAmountUnits',
+    accessorKey: 'suggestedUnitsAmount',
     header: () => (
       <div className='max-w-24 text-wrap text-center'>
         Sugestão de aporte (un.)
       </div>
     ),
     cell: ({ row }) => {
-      const units = row.getValue('suggestedAmountUnits') as number;
+      const units = row.getValue('suggestedUnitsAmount') as number;
       return (
         <div className='text-right'>
           {new Intl.NumberFormat('en-US', {

@@ -1,18 +1,4 @@
-import type { Asset } from '@/interfaces/assets';
-import type { UserObjectives } from '@/interfaces/objectives';
-import type { Category } from '@/interfaces/assets';
-
-type Suggestion = {
-  assetId: string;
-  assetName: string;
-  suggestedAmount: number;
-};
-
-type CategorySuggestion = {
-  category: Category;
-  suggestedAmount: number;
-  message: string;
-};
+import type { Asset, Category, UserObjectives, Suggestion } from '@/interfaces';
 
 export function getCurrentAssetsState(assets?: Array<Asset>) {
   const assetsByCategory = assets
@@ -96,19 +82,25 @@ export function getSuggestions(
     fii: 0,
     crypto: 0,
   };
-  const finalSuggestions: (CategorySuggestion | Suggestion)[] = [];
+  const finalSuggestions: Suggestion[] = [];
 
   // distribuicao do aporte entre as categorias com deficit
   for (const item of deficits) {
     if (remainingInvestment <= 0) break;
     const categoryValue = Math.min(item.value, remainingInvestment);
-    allocationByCategory[item.category] = categoryValue;
-    remainingInvestment -= categoryValue;
+    const hasAssetsForCurrentCategory = assets.find(
+      (asset) => asset.category === item.category
+    );
+    // apenas considera aporte se tiver asset da categoria
+    if (hasAssetsForCurrentCategory) {
+      allocationByCategory[item.category] = categoryValue;
+      remainingInvestment -= categoryValue;
+    }
   }
 
   console.log('allocationByCategory', allocationByCategory);
 
-  // distribuid aport entre as categorias
+  // distribuir aporte entre as categorias
   for (const cat in allocationByCategory) {
     const category = cat as Category;
     const allocatedValue = allocationByCategory[category];
@@ -116,29 +108,103 @@ export function getSuggestions(
       (a) => a.category === category && a.grade > 0
     );
 
-    if (categoryAssets.length === 0) {
-      finalSuggestions.push({
-        category,
-        suggestedAmount: allocatedValue,
-        message: `Sugerimos que você adicione novos ativos à categoria '${category}' para investir este valor.`,
-      });
-      continue; // precisa disso?
-    }
-
     const gradeSum = categoryAssets.reduce((sum, a) => sum + a.grade, 0);
 
     if (gradeSum > 0) {
       for (const asset of categoryAssets) {
+        const buyAmountForm = checkCategoryUnitSituation(asset.category);
         const weight = asset.grade / gradeSum;
         const suggestedAmount = allocatedValue * weight;
+        const valueSuggestedAmount = getSuggestedAmount(
+          buyAmountForm,
+          suggestedAmount,
+          asset
+        );
         finalSuggestions.push({
           assetId: asset.id,
           assetName: asset.name,
-          suggestedAmount: parseFloat(suggestedAmount.toFixed(2)),
+          suggestedAmount: valueSuggestedAmount,
         });
       }
     }
   }
 
-  return finalSuggestions;
+  return finalSuggestions.filter((s) => {
+    if (typeof s.suggestedAmount === 'number') {
+      return s.suggestedAmount > 0;
+    }
+    if (Object.hasOwn(s.suggestedAmount, 'amountToInvest')) {
+      return s.suggestedAmount.amountToInvest > 0;
+    }
+  });
+}
+
+function checkCategoryUnitSituation(category: Category) {
+  switch (category) {
+    case 'crypto':
+      return 'fraction';
+    case 'fii':
+      return 'unit';
+    case 'stocks-br':
+      return 'unit';
+    case 'stocks-us':
+      return 'fraction';
+    default:
+      return 'none';
+  }
+}
+
+function getSuggestedAmount(
+  type: string,
+  suggestedAmountForAsset: number,
+  asset: Asset
+): { quantity: number; amountToInvest: number } {
+  const assetCurrentValue = asset.currentValue;
+  if (type === 'fraction') {
+    const quantity = parseFloat(
+      (suggestedAmountForAsset / assetCurrentValue).toFixed(2)
+    );
+    const amountBasedOnQuantity = quantity * assetCurrentValue;
+    return {
+      quantity,
+      amountToInvest: amountBasedOnQuantity,
+    };
+  }
+
+  if (type === 'unit') {
+    const quantity = parseFloat(
+      Math.floor(suggestedAmountForAsset / assetCurrentValue).toFixed(2)
+    );
+    const amountBasedOnQuantity = quantity * assetCurrentValue;
+    return {
+      quantity,
+      amountToInvest: amountBasedOnQuantity,
+    };
+  }
+  return { quantity: 1, amountToInvest: suggestedAmountForAsset };
+}
+
+export function mergeAssetsAndSuggestions(
+  assets: Array<Asset>,
+  suggestions: Array<Suggestion>
+) {
+  const finalMergedData = [];
+  for (const suggestion of suggestions) {
+    const currAsset = assets.find((a) => a.id === suggestion.assetId);
+    console.log('suggestions', suggestion);
+    if (currAsset) {
+      const dataPoint = {
+        category: currAsset.category,
+        ticker: currAsset.name,
+        currentAmount: currAsset.quantity * currAsset.currentValue,
+        currentPrice: currAsset.currentValue,
+        grade: currAsset.grade,
+        suggestedInvestimentAmount: suggestion.suggestedAmount.amountToInvest,
+        suggestedUnitsAmount: suggestion.suggestedAmount.quantity,
+      };
+
+      finalMergedData.push(dataPoint);
+    }
+  }
+  return finalMergedData;
 }

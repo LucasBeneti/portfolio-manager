@@ -1,3 +1,5 @@
+'use client';
+
 import {
   useReactTable,
   getCoreRowModel,
@@ -14,124 +16,14 @@ import {
 } from '@/components/ui/table';
 import { Input } from '@/components/ui/input';
 import { Search } from 'lucide-react';
-import { type InvestmentData, columns } from './columns';
-// Dados de exemplo
-const sampleData: InvestmentData[] = [
-  {
-    category: 'fixed-income-br',
-    ticker: 'TESOURO SELIC',
-    currentAmount: 10000.0,
-    currentPrice: 100.5,
-    grade: 8.5,
-    suggestedInvestimentAmount: 5000.0,
-    suggestedAmountUnits: 49.75,
-  },
-  {
-    category: 'stocks-br',
-    ticker: 'PETR4',
-    currentAmount: 2500.0,
-    currentPrice: 25.8,
-    grade: 7.2,
-    suggestedInvestimentAmount: 1000.0,
-    suggestedAmountUnits: 38.76,
-  },
-  {
-    category: 'crypto',
-    ticker: 'BTC',
-    currentAmount: 15000.0,
-    currentPrice: 45000.0,
-    grade: 6.8,
-    suggestedInvestimentAmount: 2000.0,
-    suggestedAmountUnits: 0.044,
-  },
-  {
-    category: 'stocks-br',
-    ticker: 'VALE3',
-    currentAmount: 3200.0,
-    currentPrice: 68.5,
-    grade: 8.1,
-    suggestedInvestimentAmount: 1500.0,
-    suggestedAmountUnits: 21.9,
-  },
-  {
-    category: 'crypto',
-    ticker: 'ETH',
-    currentAmount: 8000.0,
-    currentPrice: 2500.0,
-    grade: 5.5,
-    suggestedInvestimentAmount: 800.0,
-    suggestedAmountUnits: 0.32,
-  },
-  {
-    category: 'crypto',
-    ticker: 'ETH',
-    currentAmount: 8000.0,
-    currentPrice: 2500.0,
-    grade: 5.5,
-    suggestedInvestimentAmount: 800.0,
-    suggestedAmountUnits: 0.32,
-  },
-  {
-    category: 'crypto',
-    ticker: 'ETH',
-    currentAmount: 8000.0,
-    currentPrice: 2500.0,
-    grade: 5.5,
-    suggestedInvestimentAmount: 800.0,
-    suggestedAmountUnits: 0.32,
-  },
-  {
-    category: 'crypto',
-    ticker: 'ETH',
-    currentAmount: 8000.0,
-    currentPrice: 2500.0,
-    grade: 5.5,
-    suggestedInvestimentAmount: 800.0,
-    suggestedAmountUnits: 0.32,
-  },
-  {
-    category: 'crypto',
-    ticker: 'ETH',
-    currentAmount: 8000.0,
-    currentPrice: 2500.0,
-    grade: 5.5,
-    suggestedInvestimentAmount: 800.0,
-    suggestedAmountUnits: 0.32,
-  },
-  {
-    category: 'crypto',
-    ticker: 'ETH',
-    currentAmount: 8000.0,
-    currentPrice: 2500.0,
-    grade: 5.5,
-    suggestedInvestimentAmount: 800.0,
-    suggestedAmountUnits: 0.32,
-  },
-  {
-    category: 'crypto',
-    ticker: 'ETH',
-    currentAmount: 8000.0,
-    currentPrice: 2500.0,
-    grade: 5.5,
-    suggestedInvestimentAmount: 800.0,
-    suggestedAmountUnits: 0.32,
-  },
-  {
-    category: 'crypto',
-    ticker: 'ETH',
-    currentAmount: 8000.0,
-    currentPrice: 2500.0,
-    grade: 5.5,
-    suggestedInvestimentAmount: 800.0,
-    suggestedAmountUnits: 0.32,
-  },
-];
+import { columns } from './columns';
+import type { InvestmentData } from '@/interfaces';
 
-export function InvestmentTable() {
+export function InvestmentTable({ data }: { data?: Array<InvestmentData> }) {
   const [globalFilter, setGlobalFilter] = useState('');
 
   const table = useReactTable({
-    data: sampleData,
+    data: data || [],
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
@@ -186,10 +78,10 @@ export function InvestmentTable() {
                 </TableRow>
               ))
             ) : (
-              <TableRow>
+              <TableRow className='dark'>
                 <TableCell
                   colSpan={columns.length}
-                  className='h-24 text-center'
+                  className='h-24 text-center dark:text-white'
                 >
                   Nenhum resultado encontrado.
                 </TableCell>
@@ -216,7 +108,8 @@ export function InvestmentTable() {
                   .getFilteredRowModel()
                   .rows.reduce(
                     (sum, row) =>
-                      sum + (row.getValue('currentAmount') as number),
+                      sum +
+                      (row.getValue('suggestedInvestimentAmount') as number),
                     0
                   )
               )}

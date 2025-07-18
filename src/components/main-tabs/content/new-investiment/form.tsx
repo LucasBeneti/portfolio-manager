@@ -12,15 +12,16 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useState } from 'react';
+import { useNewInvestment } from '@/hooks/use-new-investment';
+import { useUserInformation } from '@/context/user-information';
 
-// Zod schema for validation
 const formSchema = z.object({
   amount: z.number().positive('Amount must be a positive number.'),
 });
 
 export function NewInvestimentForm() {
   const [displayValue, setDisplayValue] = useState('');
-  // const [currency, setCurrency] = useState('pt-BR');
+  const { handleAddUserSuggestions } = useUserInformation();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -43,14 +44,10 @@ export function NewInvestimentForm() {
     setDisplayValue(formattedValue);
   };
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log({ amount: values.amount }); // This will be a number, e.g., 1234.56
-  }
-
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(onSubmit)}
+        onSubmit={form.handleSubmit(handleAddUserSuggestions)}
         className='dark flex gap-4 items-end justi mt-4'
       >
         <FormField
