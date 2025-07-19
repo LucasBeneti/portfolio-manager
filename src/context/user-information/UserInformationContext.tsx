@@ -5,12 +5,11 @@ import type {
   Suggestion,
   UserObjectives,
 } from '@/interfaces';
-import type { InvestmentSuggestion } from '@/utils/suggestionsv2/test';
 
 type UserInformationContextValue = {
   objectives?: UserObjectives;
   assets?: Array<Asset>;
-  suggestions?: Array<InvestmentSuggestion>;
+  suggestions?: Array<Suggestion>;
   investmentSuggestion?: Array<InvestmentData>;
   handleAddUserObjectives: (d: UserObjectives) => void;
   handleAddUserAsset: (d: Asset) => void;

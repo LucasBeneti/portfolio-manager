@@ -590,17 +590,17 @@ const investmentSuggestions = suggestInvestments(
 );
 
 console.log('\n--- Sugestões de Aporte Detalhadas ---');
-// if (investmentSuggestions.length === 0) {
-//   console.log(
-//     'Nenhuma sugestão de aporte gerada. Verifique os dados de entrada.'
-//   );
-// } else {
-//   investmentSuggestions.forEach((suggestion) => {
-//     console.log(
-//       `  - ${suggestion.asset.name} (${suggestion.asset.category}, Grade: ${suggestion.asset.grade}): ` +
-//         `Aportar R$ ${suggestion.suggestedAmount.toFixed(
-//           2
-//         )} (${suggestion.suggestedQuantity.toFixed(4)} unidades)`
-//     );
-//   });
-// }
+if (investmentSuggestions.suggestions.length === 0) {
+  console.log(
+    'Nenhuma sugestão de aporte gerada. Verifique os dados de entrada.'
+  );
+} else {
+  investmentSuggestions.suggestions.forEach((suggestion) => {
+    console.log(
+      `  - ${suggestion.asset.name} (${suggestion.asset.category}, Grade: ${suggestion.asset.grade}): ` +
+        `Aportar R$ ${suggestion.suggestedAmount.toFixed(
+          2
+        )} (${suggestion.suggestedQuantity.toFixed(4)} unidades)`
+    );
+  });
+}
