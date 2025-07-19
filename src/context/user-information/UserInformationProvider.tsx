@@ -9,18 +9,25 @@ import type {
 import { UserInformationContext } from './UserInformationContext';
 import {
   getSuggestions,
-  mergeAssetsAndSuggestions,
+  // mergeAssetsAndSuggestions,
 } from '@/utils/suggestions/current-state';
-
+import {
+  suggestInvestments,
+  mergeAssetsAndSuggestions,
+  type InvestmentSuggestion,
+} from '@/utils/suggestionsv2/test';
 export function UserInformationProvider(props: React.PropsWithChildren) {
   const [userObjectives, setUserObjectives] = React.useState<UserObjectives>();
   const [userAssets, setUserAssets] = React.useState<Array<Asset>>([]);
   const [userSuggestions, setUserSuggestions] = React.useState<
-    Array<Suggestion>
+    Array<InvestmentSuggestion>
   >([]);
   const [investmentSuggestion, setInvestmentSuggestions] = React.useState<
     Array<InvestmentData>
   >([]);
+
+  console.log('userObjectives', userObjectives);
+  console.log('userAssets', userAssets);
 
   React.useEffect(() => {
     const storedUserAssets = localStorage.getItem('userAssets');
@@ -82,27 +89,46 @@ export function UserInformationProvider(props: React.PropsWithChildren) {
   }
 
   function handleAddUserSuggestions(values: { amount: number }) {
+    // const suggestions =
+    //   userAssets && userObjectives
+    //     ? getSuggestions(values.amount, userAssets, userObjectives)
+    //     : [];
+
     const suggestions =
       userAssets && userObjectives
-        ? getSuggestions(values.amount, userAssets, userObjectives)
-        : [];
+        ? suggestInvestments(userAssets, values.amount, userObjectives)
+        : { suggestions: [], remainingInvestmentAmount: 0 };
+    const suggestionRuns = [];
+    suggestionRuns.push(suggestions);
+    let nextRunReamining = suggestions.remainingInvestmentAmount;
+    while (nextRunReamining >= 100) {
+      const newSuggestions =
+        userAssets && userObjectives
+          ? suggestInvestments(userAssets, values.amount, userObjectives)
+          : { suggestions: [], remainingInvestmentAmount: 0 };
 
-    const mergedSuggestions = mergeAssetsAndSuggestions(
-      userAssets,
-      suggestions
-    );
-    console.log(
-      'handleAddUserSuggestions => mergedSuggestions',
-      mergedSuggestions
-    );
-    setInvestmentSuggestions(mergedSuggestions);
-    localStorage.setItem(
-      'investmentSuggestion',
-      JSON.stringify(mergedSuggestions)
-    );
-    setUserSuggestions(suggestions);
-    localStorage.setItem('userSuggestions', JSON.stringify(userSuggestions));
-    console.log('finalSuggestions', suggestions);
+      suggestionRuns.push(newSuggestions);
+      nextRunReamining = newSuggestions.remainingInvestmentAmount;
+    }
+
+    console.log('suggestionRuns', suggestionRuns);
+    // const mergedSuggestions = mergeAssetsAndSuggestions(
+    //   userAssets,
+    //   suggestions
+    // );
+    // const mergedSuggestions = mergeAssetsAndSuggestions(suggestions);
+    // console.log(
+    //   'handleAddUserSuggestions => mergedSuggestions',
+    //   mergedSuggestions
+    // );
+    // setInvestmentSuggestions(mergedSuggestions);
+    // localStorage.setItem(
+    //   'investmentSuggestion',
+    //   JSON.stringify(mergedSuggestions)
+    // );
+    // setUserSuggestions(suggestions);
+    // localStorage.setItem('userSuggestions', JSON.stringify(userSuggestions));
+    // console.log('finalSuggestions', suggestions);
   }
 
   const { children } = props;
