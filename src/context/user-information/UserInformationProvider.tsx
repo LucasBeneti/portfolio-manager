@@ -8,14 +8,18 @@ import type {
 } from '@/interfaces';
 import { UserInformationContext } from './UserInformationContext';
 import {
-  getSuggestions,
+  // getSuggestions,
   mergeAssetsAndSuggestions,
 } from '@/utils/suggestions/current-state';
+import {
+  suggestInvestments,
+  type InvestmentSuggestion,
+} from '@/utils/suggestionsv2/test';
 export function UserInformationProvider(props: React.PropsWithChildren) {
   const [userObjectives, setUserObjectives] = React.useState<UserObjectives>();
   const [userAssets, setUserAssets] = React.useState<Array<Asset>>([]);
   const [userSuggestions, setUserSuggestions] = React.useState<
-    Array<Suggestion>
+    Array<InvestmentSuggestion>
   >([]);
   const [investmentSuggestion, setInvestmentSuggestions] = React.useState<
     Array<InvestmentData>
@@ -86,15 +90,14 @@ export function UserInformationProvider(props: React.PropsWithChildren) {
   function handleAddUserSuggestions(values: { amount: number }) {
     const suggestions =
       userAssets && userObjectives
-        ? getSuggestions(values.amount, userAssets, userObjectives)
-        : [];
+        ? suggestInvestments(userAssets, values.amount, userObjectives)
+        : { suggestions: [], remainingInvestmentAmount: 0 };
     const suggestionRuns = [];
     suggestionRuns.push(suggestions);
 
     console.log('suggestionRuns', suggestionRuns);
     const mergedSuggestions = mergeAssetsAndSuggestions(
-      userAssets,
-      suggestions
+      suggestions.suggestions
     );
     console.log(
       'handleAddUserSuggestions => mergedSuggestions',
@@ -105,7 +108,7 @@ export function UserInformationProvider(props: React.PropsWithChildren) {
       'investmentSuggestion',
       JSON.stringify(mergedSuggestions)
     );
-    setUserSuggestions(suggestions);
+    setUserSuggestions(suggestions.suggestions);
     localStorage.setItem('userSuggestions', JSON.stringify(userSuggestions));
     console.log('finalSuggestions', suggestions);
   }

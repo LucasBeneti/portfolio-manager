@@ -1,4 +1,5 @@
 import type { Asset, Category, UserObjectives, Suggestion } from '@/interfaces';
+import type { InvestmentSuggestion } from '../suggestionsv2/test';
 
 export function getCurrentAssetsState(assets?: Array<Asset>) {
   const assetsByCategory = assets
@@ -131,7 +132,7 @@ export function getSuggestions(
   }
 
   const remaining = newInvestment - allocatedTotalFirstPass;
-  if (remaining >= 10) {
+  if (remaining >= 1000000) {
     let currentRemains = remaining;
 
     for (const itemDeficit of deficits) {
@@ -250,12 +251,11 @@ function getSuggestedAmount(
 }
 
 export function mergeAssetsAndSuggestions(
-  assets: Array<Asset>,
-  suggestions: Array<Suggestion>
+  suggestions: Array<InvestmentSuggestion>
 ) {
   const finalMergedData = [];
   for (const suggestion of suggestions) {
-    const currAsset = assets.find((a) => a.id === suggestion.assetId);
+    const currAsset = suggestion.asset;
     if (currAsset) {
       const dataPoint = {
         category: currAsset.category,
@@ -263,8 +263,8 @@ export function mergeAssetsAndSuggestions(
         currentAmount: currAsset.quantity * currAsset.currentValue,
         currentPrice: currAsset.currentValue,
         grade: currAsset.grade,
-        suggestedInvestimentAmount: suggestion.suggestedAmount.amountToInvest,
-        suggestedUnitsAmount: suggestion.suggestedAmount.quantity,
+        suggestedInvestimentAmount: suggestion.suggestedAmount,
+        suggestedUnitsAmount: suggestion.suggestedQuantity,
       };
 
       finalMergedData.push(dataPoint);
