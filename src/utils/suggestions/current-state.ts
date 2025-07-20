@@ -131,7 +131,7 @@ export function getSuggestions(
   }
 
   const remaining = newInvestment - allocatedTotalFirstPass;
-  if (remaining >= 10) {
+  if (remaining >= 1000000) {
     let currentRemains = remaining;
 
     for (const itemDeficit of deficits) {
