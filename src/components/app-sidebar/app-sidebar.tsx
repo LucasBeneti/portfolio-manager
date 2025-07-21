@@ -13,7 +13,7 @@ export function AppSidebar() {
       <SidebarHeader className='dark' />
       <SidebarContent className='dark flex flex-col gap-8'>
         <SidebarGroup>
-          <div className='p-2 flex gap-2'>
+          <div className='p-2 flex flex-col gap-4'>
             <Link to='/' className='[&.active]:font-bold'>
               Home
             </Link>{' '}
