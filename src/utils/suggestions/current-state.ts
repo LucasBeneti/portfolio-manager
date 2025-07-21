@@ -130,68 +130,68 @@ export function getSuggestions(
     }
   }
 
-  const remaining = newInvestment - allocatedTotalFirstPass;
-  if (remaining >= 1000000) {
-    let currentRemains = remaining;
+  // const remaining = newInvestment - allocatedTotalFirstPass;
+  // if (remaining >= 1000000) {
+  //   let currentRemains = remaining;
 
-    for (const itemDeficit of deficits) {
-      if (currentRemains < 10) break;
+  //   for (const itemDeficit of deficits) {
+  //     if (currentRemains < 10) break;
 
-      const currentCategory = itemDeficit.category;
+  //     const currentCategory = itemDeficit.category;
 
-      const suggestedAssetsByCategory = finalSuggestions
-        .filter((s) => s.assetCategory === currentCategory)
-        .map((s) => ({
-          suggestion: s,
-          grade: assets.find((a) => a.id === s.assetId)?.grade || 0,
-        }))
-        .sort((a, b) => b.grade - a.grade);
+  //     const suggestedAssetsByCategory = finalSuggestions
+  //       .filter((s) => s.assetCategory === currentCategory)
+  //       .map((s) => ({
+  //         suggestion: s,
+  //         grade: assets.find((a) => a.id === s.assetId)?.grade || 0,
+  //       }))
+  //       .sort((a, b) => b.grade - a.grade);
 
-      for (const { suggestion } of suggestedAssetsByCategory) {
-        if (currentRemains < 10) break;
+  //     for (const { suggestion } of suggestedAssetsByCategory) {
+  //       if (currentRemains < 10) break;
 
-        const originalAsset = assets.find((a) => a.id === suggestion.assetId);
-        if (!originalAsset) {
-          break;
-        }
+  //       const originalAsset = assets.find((a) => a.id === suggestion.assetId);
+  //       if (!originalAsset) {
+  //         break;
+  //       }
 
-        const unitPrice = originalAsset.currentValue;
-        switch (suggestion.assetCategory) {
-          case 'stocks-br':
-          case 'fii': {
-            if (currentRemains >= unitPrice) {
-              const adittionalUnits = parseFloat(
-                Math.floor(currentRemains / unitPrice).toFixed(2)
-              );
-              const adittionalCost = adittionalUnits * unitPrice;
+  //       const unitPrice = originalAsset.currentValue;
+  //       switch (suggestion.assetCategory) {
+  //         case 'stocks-br':
+  //         case 'fii': {
+  //           if (currentRemains >= unitPrice) {
+  //             const adittionalUnits = parseFloat(
+  //               Math.floor(currentRemains / unitPrice).toFixed(2)
+  //             );
+  //             const adittionalCost = adittionalUnits * unitPrice;
 
-              suggestion.suggestedAmount.quantity += adittionalUnits;
-              suggestion.suggestedAmount.amountToInvest += adittionalCost;
-              currentRemains -= adittionalCost;
-            }
-            break;
-          }
-          case 'crypto':
-          case 'stocks-us':
-          case 'fixed-income-us':
-          case 'fixed-income-br': {
-            const extraValue = currentRemains;
-            suggestion.suggestedAmount.amountToInvest += extraValue;
-            if (suggestion.assetCategory.includes('fixed')) {
-              suggestion.suggestedAmount.quantity =
-                suggestion.suggestedAmount.amountToInvest / unitPrice;
-            }
+  //             suggestion.suggestedAmount.quantity += adittionalUnits;
+  //             suggestion.suggestedAmount.amountToInvest += adittionalCost;
+  //             currentRemains -= adittionalCost;
+  //           }
+  //           break;
+  //         }
+  //         case 'crypto':
+  //         case 'stocks-us':
+  //         case 'fixed-income-us':
+  //         case 'fixed-income-br': {
+  //           const extraValue = currentRemains;
+  //           suggestion.suggestedAmount.amountToInvest += extraValue;
+  //           if (suggestion.assetCategory.includes('fixed')) {
+  //             suggestion.suggestedAmount.quantity =
+  //               suggestion.suggestedAmount.amountToInvest / unitPrice;
+  //           }
 
-            currentRemains = 0;
-            break;
-          }
-          default: {
-            break;
-          }
-        }
-      }
-    }
-  }
+  //           currentRemains = 0;
+  //           break;
+  //         }
+  //         default: {
+  //           break;
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
 
   console.log('AFTER SECOND RUN => finalSuggestions', finalSuggestions);
   return finalSuggestions.filter((s) => {
