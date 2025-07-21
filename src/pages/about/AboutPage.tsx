@@ -11,7 +11,7 @@ export function AboutPage() {
       <h3>Como funciona</h3>
       <ol>
         <li>
-          pegamos o estado atual do portifolio, o que temos já em carteira e
+          pegamos o estado atual do portfolio, o que temos já em carteira e
           comparamos com as % dos objetivos uqe setamos para a nossa carteira.
         </li>
         <li>

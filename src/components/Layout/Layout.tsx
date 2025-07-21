@@ -7,7 +7,10 @@ export function LayoutWrapper({ children }: { children: React.ReactNode }) {
     <SidebarProvider className='dark' defaultOpen={false}>
       <AppSidebar />
       <main className='dark:bg-gray-900 w-full'>
-        <SidebarTrigger />
+        <SidebarTrigger
+          className='text-gray-900 dark:text-gray-50 size-12'
+          variant='ghost'
+        />
         {children}
       </main>
     </SidebarProvider>

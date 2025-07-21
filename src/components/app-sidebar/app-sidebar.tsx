@@ -16,7 +16,10 @@ export function AppSidebar() {
           <div className='p-2 flex flex-col gap-4'>
             <Link to='/' className='[&.active]:font-bold'>
               Home
-            </Link>{' '}
+            </Link>
+            <Link to='/portfolio' className='[&.active]:font-bold'>
+              Carteira
+            </Link>
             <Link to='/about' className='[&.active]:font-bold'>
               About
             </Link>
