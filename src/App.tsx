@@ -1,19 +1,16 @@
-import { LayoutWrapper } from './components/Layout';
-import { MainTabs } from './components/main-tabs';
-import { UserInformationProvider } from './context/user-information';
-import { DialogProvider } from './context/dialog/DialogContext';
-function App() {
-  return (
-    <LayoutWrapper>
-      <UserInformationProvider>
-        <DialogProvider>
-          <section className='flex min-h-svh flex-col items-center'>
-            <MainTabs />
-          </section>
-        </DialogProvider>
-      </UserInformationProvider>
-    </LayoutWrapper>
-  );
+import { RouterProvider } from '@tanstack/react-router';
+import { createRouter } from '@tanstack/react-router';
+import { routeTree } from './routeTree.gen';
+import './index.css';
+
+const router = createRouter({ routeTree });
+declare module '@tanstack/react-router' {
+  interface Register {
+    router: typeof router;
+  }
 }
 
+function App() {
+  return <RouterProvider router={router} />;
+}
 export default App;
