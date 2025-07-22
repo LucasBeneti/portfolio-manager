@@ -5,7 +5,7 @@ type ContentLayoutProps = PropsWithChildren<{
 }>;
 
 export function ContentLayout(props: ContentLayoutProps) {
-  const { children, isTextOnly = false } = props;
+  const { children } = props;
   return (
     <section
       className={`flex flex-col flex-1 min-h-svh items-center px-16 py-8 dark:text-white`}
