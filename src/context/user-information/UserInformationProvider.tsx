@@ -11,6 +11,7 @@ import {
   getSuggestions,
   mergeAssetsAndSuggestions,
 } from '@/utils/suggestions/current-state';
+import { LOCAL_STORAGE_PREFIX } from '@/contants/user-data';
 export function UserInformationProvider(props: React.PropsWithChildren) {
   const [userObjectives, setUserObjectives] = React.useState<UserObjectives>();
   const [userAssets, setUserAssets] = React.useState<Array<Asset>>([]);
@@ -25,11 +26,17 @@ export function UserInformationProvider(props: React.PropsWithChildren) {
   console.log('userAssets', userAssets);
 
   React.useEffect(() => {
-    const storedUserAssets = localStorage.getItem('userAssets');
-    const storedUserObjectives = localStorage.getItem('userObjectives');
-    const storedUserSuggestions = localStorage.getItem('userSuggestions');
+    const storedUserAssets = localStorage.getItem(
+      `${LOCAL_STORAGE_PREFIX}userAssets`
+    );
+    const storedUserObjectives = localStorage.getItem(
+      `${LOCAL_STORAGE_PREFIX}userObjectives`
+    );
+    const storedUserSuggestions = localStorage.getItem(
+      `${LOCAL_STORAGE_PREFIX}userSuggestions`
+    );
     const storedInvestmentSuggestion = localStorage.getItem(
-      'investmentSuggestion'
+      `${LOCAL_STORAGE_PREFIX}investmentSuggestion`
     );
 
     if (storedUserAssets && storedUserAssets !== 'undefined') {
@@ -53,16 +60,22 @@ export function UserInformationProvider(props: React.PropsWithChildren) {
   }, []);
 
   // TODO: ver se é uma boa colocar esses métodos em um useCallback
-  function handleAddUserObjectives(data: UserObjectives) {
+  const handleAddUserObjectives = React.useCallback((data: UserObjectives) => {
     console.log('handleAddUserObjectives data', data);
     setUserObjectives(data);
-    localStorage.setItem('userObjectives', JSON.stringify(data));
-  }
+    localStorage.setItem(
+      `${LOCAL_STORAGE_PREFIX}serObjectives`,
+      JSON.stringify(data)
+    );
+  }, []);
 
   function handleAddUserAsset(newAsset: Asset) {
     const updatedAssets = [...userAssets, newAsset];
     setUserAssets(updatedAssets);
-    localStorage.setItem('userAssets', JSON.stringify(updatedAssets));
+    localStorage.setItem(
+      `${LOCAL_STORAGE_PREFIX}userAssets`,
+      JSON.stringify(updatedAssets)
+    );
   }
 
   function handleEditUserAsset(asset: Asset) {
@@ -73,14 +86,20 @@ export function UserInformationProvider(props: React.PropsWithChildren) {
       return a;
     });
     setUserAssets(newArray);
-    localStorage.setItem('userAssets', JSON.stringify(newArray));
+    localStorage.setItem(
+      `${LOCAL_STORAGE_PREFIX}userAssets`,
+      JSON.stringify(newArray)
+    );
   }
 
   function handleRemoveUserAsset(assetId: string) {
     const updatedArr = userAssets.filter((a) => a.id !== assetId);
 
     setUserAssets(updatedArr);
-    localStorage.setItem('userAssets', JSON.stringify(updatedArr));
+    localStorage.setItem(
+      `${LOCAL_STORAGE_PREFIX}userAssets`,
+      JSON.stringify(updatedArr)
+    );
   }
 
   function handleAddUserSuggestions(values: { amount: number }) {
@@ -102,11 +121,14 @@ export function UserInformationProvider(props: React.PropsWithChildren) {
     );
     setInvestmentSuggestions(mergedSuggestions);
     localStorage.setItem(
-      'investmentSuggestion',
+      `${LOCAL_STORAGE_PREFIX}investmentSuggestio`,
       JSON.stringify(mergedSuggestions)
     );
     setUserSuggestions(suggestions);
-    localStorage.setItem('userSuggestions', JSON.stringify(userSuggestions));
+    localStorage.setItem(
+      `${LOCAL_STORAGE_PREFIX}userSuggestions`,
+      JSON.stringify(userSuggestions)
+    );
     console.log('finalSuggestions', suggestions);
   }
 
