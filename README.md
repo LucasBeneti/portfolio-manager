@@ -5,5 +5,7 @@
 ### Lista de melhorias
 
 - [ ] exportar dados do local storage (para ser reutilizado em outro dipsositivo)
+- [ ] implementar o GET dos valores de preço para ações brasileiras e ou americanas
+  - não sei exatamente como isso vai ficar no modal, se mantém o vampo de currentValue
 - [ ] versão mobile (preciso deixar a tabela e as abas mais responsivas)
 - [ ] adicionar mais conteúdo na página sobre de como o algoritmo das sugestões funciona

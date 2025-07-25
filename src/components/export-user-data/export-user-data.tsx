@@ -7,6 +7,7 @@ import {
 import { exportUserData } from '@/utils/export-data/export-user-data';
 
 export function ExportUserData() {
+  // TODO: implementar aqui o uso dos métodos do DialogContext
   return (
     <Tooltip>
       <TooltipTrigger asChild>
