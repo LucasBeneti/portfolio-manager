@@ -1,4 +1,4 @@
-import { useDialogContext } from '@/context/dialog/DialogContext';
+import { useDialogContext } from '@/context/dialog';
 import { useUserInformation } from '@/context/user-information';
 import type { Asset } from '@/interfaces/assets';
 

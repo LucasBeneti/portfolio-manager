@@ -1,6 +1,6 @@
 import DemoPage from '@/components/tables/assets/page';
 import { Button } from '@/components/ui/button';
-import { useDialogContext } from '@/context/dialog/DialogContext';
+import { useDialogContext } from '@/context/dialog';
 import { getCurrentAssetsState } from '@/utils/suggestions/current-state';
 import { useUserInformation } from '@/context/user-information';
 

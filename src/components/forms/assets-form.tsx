@@ -15,7 +15,7 @@ import { DialogClose, DialogFooter } from '../ui/dialog';
 import { CategorySelect } from './category-select/category-select';
 import { useUserInformation } from '@/context/user-information';
 import type { Asset } from '@/interfaces/assets';
-import { useDialogContext } from '@/context/dialog/DialogContext';
+import { useDialogContext } from '@/context/dialog';
 import { categorySchema } from '@/schema/assets';
 import type { Category } from '@/interfaces/assets';
 
