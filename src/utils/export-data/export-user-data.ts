@@ -1,4 +1,5 @@
 import { LOCAL_STORAGE_PREFIX } from '@/contants/user-data';
+import { toast } from 'sonner';
 
 export function exportUserData() {
   const neededUserData: Array<string> = [
@@ -39,10 +40,10 @@ export function exportUserData() {
     link.click();
     document.body.removeChild(link);
 
-    // 6. Revoke the object URL to free up memory
     URL.revokeObjectURL(url);
+    toast.success('Arquivo exportado com sucesso!');
   } catch (error) {
     console.error('Error exporting data from localStorage:', error);
-    alert('Failed to export data. See console for details.');
+    toast.error('Failed to export data. See console for details.');
   }
 }

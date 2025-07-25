@@ -1,75 +1,86 @@
-import * as React from 'react';
-import { z } from 'zod';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
+import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-  FormDescription,
 } from '@/components/ui/form';
-import { Button } from '../ui/button';
-import { Input } from '../ui/input';
-import { Upload, File, X } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { Upload, Download, File, X } from 'lucide-react';
+import { exportUserData } from '@/utils/export-data/export-user-data';
+import { toast } from 'sonner';
 
 const fileSchema = z.object({
   file: z
     .instanceof(FileList)
     .refine((files) => files?.length > 0, 'Please select a file')
     .refine(
-      (files) => files?.[0]?.size <= 5 * 1024 * 1024,
+      (files) => files?.[0]?.size <= 5 * 1024 * 1024, // 5MB limit
       'File size must be less than 5MB'
     )
     .refine((files) => {
-      const allowedTypes = ['application/json'];
-      return allowedTypes.includes(files?.[0]?.type);
-    }, 'Apenas o formato JSON será aceito.'),
+      const file = files?.[0];
+      return (
+        file?.type === 'application/json' ||
+        file?.name.toLowerCase().endsWith('.json')
+      );
+    }, 'Only JSON files are allowed'),
 });
 
 type FileFormData = z.infer<typeof fileSchema>;
 
-export function ImportUserData() {
+export function ImportExportUserDataForm() {
   const [selectedFile, setSelectedFile] = React.useState<File | null>(null);
   const [isUploading, setIsUploading] = React.useState(false);
+
   const form = useForm<FileFormData>({
     resolver: zodResolver(fileSchema),
-    defaultValues: {},
   });
 
   const fileRef = form.register('file');
-
   const onSubmit = async (data: FileFormData) => {
     setIsUploading(true);
 
     try {
       const file = data.file[0];
-      console.log('Uploading file:', file.name);
+      console.log('Processing file:', file.name);
 
-      // Create FormData for file upload
-      const formData = new FormData();
-      formData.append('file', file);
+      const fileContent = await file.text();
 
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      const jsonData = JSON.parse(fileContent);
 
-      // Here you would typically make your API call
-      // const response = await fetch('/api/upload', {
-      //   method: 'POST',
-      //   body: formData,
-      // });
+      Object.entries(jsonData).forEach(([key, value]) => {
+        const stringValue =
+          typeof value === 'string' ? value : JSON.stringify(value);
+        localStorage.setItem(key, stringValue);
+        console.log(`Stored in localStorage: ${key} = ${stringValue}`);
+      });
 
-      console.log('File uploaded successfully!');
-
-      // Reset form after successful upload
+      console.log(
+        'File processed and data stored in localStorage successfully!'
+      );
       form.reset();
       setSelectedFile(null);
     } catch (error) {
-      console.error('Upload failed:', error);
+      console.error('Failed to process file:', error);
+      toast.error('Falha ao importar o arquivo! :(');
+      if (error instanceof SyntaxError) {
+        console.error('Invalid JSON format in the file');
+        toast.error('JSON com formato inválido');
+      } else {
+        console.error('Failed to read or process the file');
+        toast.error('Falha no processo de leitura do arquivo.');
+      }
     } finally {
       setIsUploading(false);
+      toast.success('Arquivo importado com sucesso!');
     }
   };
 
@@ -77,6 +88,7 @@ export function ImportUserData() {
     const files = e.target.files;
     if (files && files.length > 0) {
       setSelectedFile(files[0]);
+      form.trigger('file');
     } else {
       setSelectedFile(null);
     }
@@ -84,7 +96,13 @@ export function ImportUserData() {
 
   const removeFile = () => {
     setSelectedFile(null);
-    form.setValue('file', new FileList());
+    const fileInput = document.getElementById(
+      'file-upload'
+    ) as HTMLInputElement;
+    if (fileInput) {
+      fileInput.value = '';
+    }
+    form.resetField('file');
     form.clearErrors('file');
   };
 
@@ -95,13 +113,23 @@ export function ImportUserData() {
     const i = Math.floor(Math.log(bytes) / Math.log(k));
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
   };
+
+  React.useEffect(() => {
+    console.log('Form State:', {
+      isValid: form.formState.isValid,
+      errors: form.formState.errors,
+      values: form.getValues(),
+      selectedFile: selectedFile?.name,
+    });
+  }, [form.formState, selectedFile]);
+
   return (
     <Form {...form}>
       <div onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
         <FormField
           control={form.control}
           name='file'
-          render={({ field }) => (
+          render={() => (
             <FormItem>
               <FormLabel className='text-sm font-medium text-gray-700'>
                 Choose File
@@ -119,7 +147,7 @@ export function ImportUserData() {
                         fileRef.onChange(e);
                         handleFileChange(e);
                       }}
-                      accept='image/jpeg,image/png,image/gif,application/pdf,text/plain'
+                      accept='.json,application/json'
                     />
                     <label
                       htmlFor='file-upload'
@@ -130,12 +158,11 @@ export function ImportUserData() {
                         Click to select a file
                       </span>
                       <span className='text-xs text-gray-400 mt-1'>
-                        Max 5MB • JPEG, PNG, GIF, PDF, TXT
+                        Max 5MB • JSON files only
                       </span>
                     </label>
                   </div>
 
-                  {/* Selected File Display */}
                   {selectedFile && (
                     <div className='flex items-center justify-between p-3 bg-gray-50 rounded-lg border'>
                       <div className='flex items-center space-x-3'>
@@ -170,23 +197,36 @@ export function ImportUserData() {
           )}
         />
 
-        <Button
-          type='submit'
-          disabled={!selectedFile || isUploading}
-          className='w-full'
-        >
-          {isUploading ? (
-            <>
-              <div className='animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2' />
-              Uploading...
-            </>
-          ) : (
-            <>
-              <Upload className='w-4 h-4 mr-2' />
-              Upload File
-            </>
-          )}
-        </Button>
+        <section className='flex flex-col gap-4'>
+          <Button
+            type='button'
+            onClick={form.handleSubmit(onSubmit)}
+            disabled={!form.formState.isValid || isUploading || !selectedFile}
+            className='w-full'
+          >
+            {isUploading ? (
+              <>
+                <div className='animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2' />
+                Uploading...
+              </>
+            ) : (
+              <>
+                <Upload className='w-4 h-4 mr-2' />
+                Upload File
+              </>
+            )}
+          </Button>
+          <p className='dark dark:text-white text-center'>Ou</p>
+          <Button
+            type='button'
+            variant='secondary'
+            className='dark'
+            onClick={exportUserData}
+          >
+            <Download className='w-4 h-4 mr-2' />
+            Exportar dados armazenados
+          </Button>
+        </section>
       </div>
     </Form>
   );
