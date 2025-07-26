@@ -1,5 +1,5 @@
 import * as React from 'react';
-
+import { getUserAssetsQuotes } from '@/utils/assets-quotes/quotes';
 import type {
   Asset,
   UserObjectives,
@@ -133,6 +133,7 @@ export function UserInformationProvider(props: React.PropsWithChildren) {
   }
 
   const { children } = props;
+  const test = userAssets ? getUserAssetsQuotes(userAssets) : null;
 
   const value = {
     objectives: userObjectives,
