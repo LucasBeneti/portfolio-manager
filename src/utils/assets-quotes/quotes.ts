@@ -30,12 +30,10 @@ export async function getSingleTickerQuote(asset: Asset) {
   const quotableAssets = ['stocks-br', 'stocks-us', 'fii', 'crypto'];
   const assetCategory = asset.category;
   if (quotableAssets.includes(assetCategory)) {
-    let symbol = asset.name;
     if (assetCategory === 'fii' || assetCategory === 'stocks-br') {
-      // symbol += '.SA';
       const service_url = import.meta.env.VITE_BRAPI_BASE_URL;
       const response = await fetch(
-        `${service_url}/quote/${symbol}?token=${BRAPI_TOKEN}`
+        `${service_url}/quote/${asset.name}?token=${BRAPI_TOKEN}`
       );
       // const response = await fetch(
       //   `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=qualquercoisa`
