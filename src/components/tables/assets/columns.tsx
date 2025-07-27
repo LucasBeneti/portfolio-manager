@@ -1,18 +1,8 @@
 import { type ColumnDef } from '@tanstack/react-table';
-import { MoreHorizontal } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { useAssetsActions } from '@/hooks/use-assets-actions';
 import type { Asset } from '@/interfaces/assets';
 import { CategoryBadge } from '../../category-badge/category-badge';
 import type { Category } from '../../../interfaces/assets';
+import { AssetsTableContextualMenu } from '@/components/assets-table-contextual-menu/contextual-menu';
 
 export const columns: ColumnDef<Asset>[] = [
   {
@@ -68,27 +58,7 @@ export const columns: ColumnDef<Asset>[] = [
     id: 'actions',
     cell: ({ row }) => {
       const asset = row.original;
-      const { handleDeleteAsset, handleEditAsset } = useAssetsActions();
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant='ghost' className='h-8 w-8 p-0'>
-              <span className='sr-only'>Open menu</span>
-              <MoreHorizontal className='h-4 w-4' />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align='end'>
-            <DropdownMenuLabel>Ações</DropdownMenuLabel>
-            <DropdownMenuItem onClick={() => handleEditAsset(asset)}>
-              Editar
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => handleDeleteAsset(asset.id)}>
-              Excluir
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
+      return <AssetsTableContextualMenu asset={asset} />;
     },
   },
 ];

@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { getUserAssetsQuotes } from '@/utils/assets-quotes/quotes';
 import type {
   Asset,
   UserObjectives,
@@ -12,6 +11,7 @@ import {
   mergeAssetsAndSuggestions,
 } from '@/utils/suggestions/current-state';
 import { LOCAL_STORAGE_PREFIX } from '@/contants/user-data';
+
 export function UserInformationProvider(props: React.PropsWithChildren) {
   const [userObjectives, setUserObjectives] = React.useState<UserObjectives>();
   const [userAssets, setUserAssets] = React.useState<Array<Asset>>([]);
@@ -133,7 +133,6 @@ export function UserInformationProvider(props: React.PropsWithChildren) {
   }
 
   const { children } = props;
-  const test = userAssets ? getUserAssetsQuotes(userAssets) : null;
 
   const value = {
     objectives: userObjectives,

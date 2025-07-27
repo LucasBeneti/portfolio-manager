@@ -1,4 +1,4 @@
-import DemoPage from '@/components/tables/assets/page';
+import AssetsTable from '@/components/tables/assets/page';
 import { Button } from '@/components/ui/button';
 import { useDialogContext } from '@/context/dialog';
 import { getCurrentAssetsState } from '@/utils/suggestions/current-state';
@@ -15,7 +15,7 @@ export function AssetsContent() {
         <p className='dark:text-white'>Seus ativos:</p>
         <Button onClick={handleOpenNewAssetDialog}>Adicionar ativo</Button>
       </section>
-      <DemoPage />
+      <AssetsTable />
     </>
   );
 }

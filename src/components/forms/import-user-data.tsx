@@ -114,15 +114,6 @@ export function ImportExportUserDataForm() {
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
   };
 
-  React.useEffect(() => {
-    console.log('Form State:', {
-      isValid: form.formState.isValid,
-      errors: form.formState.errors,
-      values: form.getValues(),
-      selectedFile: selectedFile?.name,
-    });
-  }, [form.formState, selectedFile]);
-
   return (
     <Form {...form}>
       <div onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
@@ -136,7 +127,6 @@ export function ImportExportUserDataForm() {
               </FormLabel>
               <FormControl>
                 <div className='space-y-4'>
-                  {/* File Input */}
                   <div className='relative'>
                     <Input
                       type='file'
@@ -190,7 +180,7 @@ export function ImportExportUserDataForm() {
                 </div>
               </FormControl>
               <FormDescription className='text-xs text-gray-600'>
-                Select a file to upload to your application
+                Selecione um arquivo para importar
               </FormDescription>
               <FormMessage className='text-sm text-red-600' />
             </FormItem>
