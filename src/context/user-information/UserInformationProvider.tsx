@@ -11,6 +11,7 @@ import {
   mergeAssetsAndSuggestions,
 } from '@/utils/suggestions/current-state';
 import { LOCAL_STORAGE_PREFIX } from '@/contants/user-data';
+import { useGetAssetsQuotes } from '@/queries/useGetAssetsQuotes';
 
 export function UserInformationProvider(props: React.PropsWithChildren) {
   const [userObjectives, setUserObjectives] = React.useState<UserObjectives>();
@@ -21,6 +22,14 @@ export function UserInformationProvider(props: React.PropsWithChildren) {
   const [investmentSuggestion, setInvestmentSuggestions] = React.useState<
     Array<InvestmentData>
   >([]);
+
+  const quoteQueries = useGetAssetsQuotes(userAssets);
+  // const quotes = quoteQueries.reduce((acc, query, index) => {
+  //   if (query.data) {
+  //     acc[symbols[index]] = query.data;
+  //   }
+  //   return acc;
+  // }, {} as Record<string, StockQuote>);quotes
 
   console.log('userObjectives', userObjectives);
   console.log('userAssets', userAssets);
@@ -59,7 +68,10 @@ export function UserInformationProvider(props: React.PropsWithChildren) {
     }
   }, []);
 
-  // TODO: ver se é uma boa colocar esses métodos em um useCallback
+  // React.useEffect(() => {
+  //   if
+  // }, [quotesData, isSuccess])
+
   const handleAddUserObjectives = React.useCallback((data: UserObjectives) => {
     console.log('handleAddUserObjectives data', data);
     setUserObjectives(data);
@@ -69,16 +81,16 @@ export function UserInformationProvider(props: React.PropsWithChildren) {
     );
   }, []);
 
-  function handleAddUserAsset(newAsset: Asset) {
+  const handleAddUserAsset = React.useCallback((newAsset: Asset) => {
     const updatedAssets = [...userAssets, newAsset];
     setUserAssets(updatedAssets);
     localStorage.setItem(
       `${LOCAL_STORAGE_PREFIX}userAssets`,
       JSON.stringify(updatedAssets)
     );
-  }
+  }, []);
 
-  function handleEditUserAsset(asset: Asset) {
+  const handleEditUserAsset = React.useCallback((asset: Asset) => {
     const newArray = userAssets.map((a) => {
       if (a.id === asset.id) {
         return asset;
@@ -90,9 +102,9 @@ export function UserInformationProvider(props: React.PropsWithChildren) {
       `${LOCAL_STORAGE_PREFIX}userAssets`,
       JSON.stringify(newArray)
     );
-  }
+  }, []);
 
-  function handleRemoveUserAsset(assetId: string) {
+  const handleRemoveUserAsset = React.useCallback((assetId: string) => {
     const updatedArr = userAssets.filter((a) => a.id !== assetId);
 
     setUserAssets(updatedArr);
@@ -100,37 +112,40 @@ export function UserInformationProvider(props: React.PropsWithChildren) {
       `${LOCAL_STORAGE_PREFIX}userAssets`,
       JSON.stringify(updatedArr)
     );
-  }
+  }, []);
 
-  function handleAddUserSuggestions(values: { amount: number }) {
-    const suggestions =
-      userAssets && userObjectives
-        ? getSuggestions(values.amount, userAssets, userObjectives)
-        : [];
-    const suggestionRuns = [];
-    suggestionRuns.push(suggestions);
+  const handleAddUserSuggestions = React.useCallback(
+    (values: { amount: number }) => {
+      const suggestions =
+        userAssets && userObjectives
+          ? getSuggestions(values.amount, userAssets, userObjectives)
+          : [];
+      const suggestionRuns = [];
+      suggestionRuns.push(suggestions);
 
-    console.log('suggestionRuns', suggestionRuns);
-    const mergedSuggestions = mergeAssetsAndSuggestions(
-      userAssets,
-      suggestions
-    );
-    console.log(
-      'handleAddUserSuggestions => mergedSuggestions',
-      mergedSuggestions
-    );
-    setInvestmentSuggestions(mergedSuggestions);
-    localStorage.setItem(
-      `${LOCAL_STORAGE_PREFIX}investmentSuggestio`,
-      JSON.stringify(mergedSuggestions)
-    );
-    setUserSuggestions(suggestions);
-    localStorage.setItem(
-      `${LOCAL_STORAGE_PREFIX}userSuggestions`,
-      JSON.stringify(userSuggestions)
-    );
-    console.log('finalSuggestions', suggestions);
-  }
+      console.log('suggestionRuns', suggestionRuns);
+      const mergedSuggestions = mergeAssetsAndSuggestions(
+        userAssets,
+        suggestions
+      );
+      console.log(
+        'handleAddUserSuggestions => mergedSuggestions',
+        mergedSuggestions
+      );
+      setInvestmentSuggestions(mergedSuggestions);
+      localStorage.setItem(
+        `${LOCAL_STORAGE_PREFIX}investmentSuggestio`,
+        JSON.stringify(mergedSuggestions)
+      );
+      setUserSuggestions(suggestions);
+      localStorage.setItem(
+        `${LOCAL_STORAGE_PREFIX}userSuggestions`,
+        JSON.stringify(userSuggestions)
+      );
+      console.log('finalSuggestions', suggestions);
+    },
+    []
+  );
 
   const { children } = props;
 
