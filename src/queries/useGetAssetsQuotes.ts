@@ -1,5 +1,6 @@
 import { useQueries } from '@tanstack/react-query';
 import type { Asset } from '@/interfaces';
+import type { StockQuote } from '@/interfaces/stock-quotes';
 
 export function useGetAssetsQuotes(assets?: Array<Asset>) {
   return useQueries({
@@ -9,8 +10,8 @@ export function useGetAssetsQuotes(assets?: Array<Asset>) {
       return {
         queryKey: ['stock', asset.name], // Individual query key for each stock
         queryFn: isBRStock
-          ? () => fetchBRQuote(asset.name)
-          : () => fetchUSQuote(asset.name),
+          ? async () => fetchBRQuote(asset.name)
+          : async () => fetchUSQuote(asset.name),
         staleTime: 21600000, // Long stale time for each
         gcTime: 21600000,
       };
@@ -18,7 +19,7 @@ export function useGetAssetsQuotes(assets?: Array<Asset>) {
   });
 }
 
-async function fetchBRQuote(ticker: string) {
+async function fetchBRQuote(ticker: string): Promise<StockQuote> {
   const response = await fetch(
     `https://brapi.dev/api/quote/${ticker}?token=${import.meta.env.VITE_BRAPI_API_TOKEN}`
   );
@@ -34,7 +35,7 @@ async function fetchBRQuote(ticker: string) {
   };
 }
 
-async function fetchUSQuote(ticker: string) {
+async function fetchUSQuote(ticker: string): Promise<StockQuote> {
   const response = await fetch(
     `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${ticker}&apikey=qualquercoisa`
   );
