@@ -11,6 +11,8 @@ type UserInformationContextValue = {
   assets?: Array<Asset>;
   suggestions?: Array<Suggestion>;
   investmentSuggestion?: Array<InvestmentData>;
+  usdBrlQuote?: number;
+  handleSetUSDBRLQuote: (v: { usdbrlQuote: number }) => void;
   handleAddUserObjectives: (d: UserObjectives) => void;
   handleAddUserAsset: (d: Asset) => void;
   handleEditUserAsset: (d: Asset) => void;
