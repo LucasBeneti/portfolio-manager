@@ -23,15 +23,10 @@ e está confortável o bastante para ser considerado em novos aportes
 
 Após o investidor colocar todos seus ativos, categorizando eles
 corretamente e em termos de valor também, se desejar, ele pode partir
-para a aba de “Novo aporte”, onde ele vai escolher o valor de seu novo
+para a aba de “Novo aporte”, onde ele deve escolher o valor de seu novo
 aporte, e verá sugestões, levando em consideração as metas para a
-carteira e seus ativos atuais. Lembrando que tudo isso são sugestões e
-o investidor deve analisar se faz sentido para o momento dele e
-aportar como preferir. Mas saiba que elas não são computadas de forma
-aleatória, pois a ideia das sugestões é justamente sugerir o que está
-mais faltando para a carteira atual do investidor naquele momento,
-levando em consideração o estado atual da sua carteira e seus
-objetivos como investidor. Mais detalhes de como o algoritmo funciona
-na página de Mais informações.
+carteira e seus ativos atuais.
 
-**Dúvidas e sugestões** podem ser encaminhadas para: _email de contato_
+Lembrando que tudo isso são sugestões e o investidor deve analisar se faz sentido para o momento dele e aportar como preferir. Mas saiba que elas não são computadas de forma aleatória, pois a ideia das sugestões é justamente sugerir o que está mais faltando para a carteira atual do investidor naquele momento, levando em consideração o estado atual da sua carteira e seus objetivos como investidor. Mais detalhes de como o algoritmo funciona na página de Mais informações.
+
+**Dúvidas e sugestões** podem ser encaminhadas para: lbeneti@gmail.com
