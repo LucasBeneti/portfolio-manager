@@ -1,6 +1,6 @@
 export type StockQuote = {
   currency: string;
-  price: string;
+  price: number;
   ticker: string;
   positiveClosing?: boolean;
 };

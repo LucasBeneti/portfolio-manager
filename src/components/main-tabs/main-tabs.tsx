@@ -4,7 +4,7 @@ import { ObjectivesContent } from './content/objectives/content';
 import { NewInvestimentContent } from './content/new-investiment/content';
 export function MainTabs() {
   return (
-    <Tabs defaultValue='assets' className='w-[700px]'>
+    <Tabs defaultValue='assets' className='w-[80%]'>
       <TabsList>
         <TabsTrigger value='assets'>Ativos</TabsTrigger>
         <TabsTrigger value='objectives'>Metas</TabsTrigger>

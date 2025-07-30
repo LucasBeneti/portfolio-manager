@@ -30,7 +30,7 @@ async function fetchBRQuote(ticker: string): Promise<StockQuote> {
 
   return {
     currency: data.results[0].currency,
-    price: data.results[0].regularMarketPrice,
+    price: parseFloat(data.results[0].regularMarketPrice),
     ticker: data.results[0].symbol,
   };
 }
@@ -43,5 +43,9 @@ async function fetchUSQuote(ticker: string): Promise<StockQuote> {
     throw new Error(`Network response was not ok for ${ticker}`);
   }
   const data = await response.json();
-  return data.results[0];
+  return {
+    currency: 'USD',
+    price: parseFloat(data['Global Quote']['05. price']),
+    ticker: data['Global Quote']['01. symbol'],
+  };
 }

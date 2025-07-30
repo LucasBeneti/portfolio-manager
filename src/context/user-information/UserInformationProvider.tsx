@@ -41,7 +41,13 @@ export function UserInformationProvider(props: React.PropsWithChildren) {
     (acc, query, index) => {
       const currentTicker = quotableAssets ? quotableAssets[index]?.name : '';
       if (query.data) {
-        acc[currentTicker] = query.data;
+        acc[currentTicker] =
+          query.data.currency === 'USD'
+            ? {
+                ...query.data,
+                price: query.data.price * (usdBrlQuote ?? 1),
+              }
+            : query.data;
       }
       return acc;
     },
@@ -51,7 +57,7 @@ export function UserInformationProvider(props: React.PropsWithChildren) {
   const updatedAssets = React.useMemo(() => {
     return userAssets.map((asset) => {
       if (Object.keys(quotes).includes(asset.name)) {
-        asset.currentValue = parseFloat(quotes[asset.name].price);
+        asset.currentValue = quotes[asset.name].price;
       }
 
       return asset;
@@ -61,12 +67,12 @@ export function UserInformationProvider(props: React.PropsWithChildren) {
   console.log('userObjectives', userObjectives);
   console.log('userAssets', userAssets);
 
-  function handleSetUSDBRLQuote(value: { usdbrlQuote: number }) {
-    const { usdbrlQuote } = value;
-    setUsdBrlQuote(usdbrlQuote);
+  function handleSetUSDBRLQuote(value: { usdBrlQuote: number }) {
+    const { usdBrlQuote } = value;
+    setUsdBrlQuote(usdBrlQuote);
     localStorage.setItem(
       `${LOCAL_STORAGE_PREFIX}USDBRL`,
-      JSON.stringify(usdbrlQuote)
+      JSON.stringify(usdBrlQuote)
     );
   }
 
