@@ -11,29 +11,38 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useUserInformation } from '@/context/user-information';
 
 const formSchema = z.object({
-  usdbrlQuote: z.number().positive('Amount must be a positive number.'),
+  usdBrlQuote: z.number().positive('Amount must be a positive number.'),
 });
 
 export function USDQuoteForm() {
   const [displayValue, setDisplayValue] = useState('');
   const { usdBrlQuote, handleSetUSDBRLQuote } = useUserInformation();
-
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      usdbrlQuote: usdBrlQuote,
+      usdBrlQuote: usdBrlQuote,
     },
   });
+
+  useEffect(() => {
+    if (usdBrlQuote) {
+      const formattedValue = new Intl.NumberFormat('pt-BR', {
+        style: 'currency',
+        currency: 'BRL',
+      }).format(usdBrlQuote);
+      setDisplayValue(formattedValue);
+    }
+  }, [usdBrlQuote]);
 
   const handleValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const rawValue = e.target.value.replace(/\D/g, '');
     const numericValue = Number(rawValue) / 100;
 
-    form.setValue('usdbrlQuote', numericValue, { shouldValidate: true });
+    form.setValue('usdBrlQuote', numericValue, { shouldValidate: true });
 
     const formattedValue = new Intl.NumberFormat('pt-BR', {
       style: 'currency',
@@ -51,7 +60,7 @@ export function USDQuoteForm() {
       >
         <FormField
           control={form.control}
-          name='usdbrlQuote'
+          name='usdBrlQuote'
           render={({ field }) => (
             <FormItem>
               <FormLabel className='dark:text-white font-bold'>

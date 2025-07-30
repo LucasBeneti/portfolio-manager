@@ -8,7 +8,14 @@ export function PortfolioPage() {
   const { handleOpenExportUserDataDialog } = useDialogContext();
   return (
     <ContentLayout>
-      <USDQuoteForm />
+      <section className='flex flex-col gap-2 mb-6 w-[80%]'>
+        <h3 className='font-bold dark:text-white'>Cotação do dolar atual:</h3>
+        <p className='text-gray-400'>
+          Esse valor é utilizado para alguns cálculos aqui, como nas sugestões
+          de investimento.
+        </p>
+        <USDQuoteForm />
+      </section>
       <MainTabs />
       <Button
         onClick={handleOpenExportUserDataDialog}
