@@ -13,7 +13,9 @@ export function AssetsContent() {
     <>
       <section className='flex justify-between items-center'>
         <p className='dark:text-white'>Seus ativos:</p>
-        <Button onClick={handleOpenNewAssetDialog}>Adicionar ativo</Button>
+        <Button onClick={() => handleOpenNewAssetDialog()}>
+          Adicionar ativo
+        </Button>
       </section>
       <AssetsTable />
     </>
