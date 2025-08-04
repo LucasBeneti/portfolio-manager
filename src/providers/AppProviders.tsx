@@ -16,12 +16,11 @@ const queryClient = new QueryClient({
 export function AppProviders({ children }: PropsWithChildren) {
   return (
     <QueryClientProvider client={queryClient}>
-      <LayoutWrapper>
-        <UserInformationProvider>
-          <DialogProvider>{children}</DialogProvider>
-        </UserInformationProvider>
-      </LayoutWrapper>
-      <ReactQueryDevtools />
+      <UserInformationProvider>
+        <DialogProvider>
+          <LayoutWrapper>{children}</LayoutWrapper>
+        </DialogProvider>
+      </UserInformationProvider>
     </QueryClientProvider>
   );
 }

@@ -5,9 +5,13 @@ import {
   SidebarGroup,
   SidebarHeader,
 } from '@/components/ui/sidebar';
+import { Button } from '../ui/button';
 import { Link } from '@tanstack/react-router';
+import { useDialogContext } from '@/context/dialog';
 
 export function AppSidebar() {
+  const { handleOpenExportUserDataDialog, handleOpenDollarQuoteDialog } =
+    useDialogContext();
   return (
     <Sidebar className='dark'>
       <SidebarHeader className='dark' />
@@ -26,7 +30,20 @@ export function AppSidebar() {
           </div>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter />
+      <SidebarFooter className='p-4'>
+        <Button
+          onClick={handleOpenDollarQuoteDialog}
+          className='dark dark:bg-green-600 dark:text-white font-bold'
+        >
+          Cotação do Dólar
+        </Button>
+        <Button
+          onClick={handleOpenExportUserDataDialog}
+          className='dark dark:bg-gray-600 dark:text-white font-bold'
+        >
+          Gerenciar dados
+        </Button>
+      </SidebarFooter>
     </Sidebar>
   );
 }

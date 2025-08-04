@@ -10,6 +10,8 @@ type DialogContextValue = {
   openAssetDialog: boolean;
   handleOpenNewAssetDialog: (d?: HandleOpenNewAssetDialogParams) => void;
   handleOpenExportUserDataDialog: () => void;
+  handleOpenDollarQuoteDialog: () => void;
+  closeDollarQuoteDialog: () => void;
   closeAssetDialog: () => void;
 };
 

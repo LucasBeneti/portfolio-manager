@@ -13,12 +13,14 @@ import {
 import { Input } from '@/components/ui/input';
 import { useEffect, useState } from 'react';
 import { useUserInformation } from '@/context/user-information';
+import { useDialogContext } from '@/context/dialog';
 
 const formSchema = z.object({
   usdBrlQuote: z.number().positive('Amount must be a positive number.'),
 });
 
 export function USDQuoteForm() {
+  const { closeDollarQuoteDialog } = useDialogContext();
   const [displayValue, setDisplayValue] = useState('');
   const { usdBrlQuote, handleSetUSDBRLQuote } = useUserInformation();
   const form = useForm<z.infer<typeof formSchema>>({
@@ -56,7 +58,7 @@ export function USDQuoteForm() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(handleSetUSDBRLQuote)}
-        className='dark flex gap-4 items-end justi mt-4'
+        className='dark flex items-end justify-between mt-4'
       >
         <FormField
           control={form.control}
@@ -72,14 +74,20 @@ export function USDQuoteForm() {
                   {...field}
                   onChange={handleValueChange}
                   value={displayValue}
-                  className='dark:text-white max-w-32'
+                  className='dark:text-white w-32 max-w-32'
                 />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type='submit'>Submeter</Button>
+        <Button
+          type='submit'
+          onClick={() => closeDollarQuoteDialog()}
+          className='w-32 max-w-32'
+        >
+          Submeter
+        </Button>
       </form>
     </Form>
   );
