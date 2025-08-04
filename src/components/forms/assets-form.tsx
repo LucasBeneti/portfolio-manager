@@ -130,23 +130,6 @@ export function AssetsForm(props: AssetsFormProps) {
             />
             <FormField
               control={form.control}
-              name='quantity'
-              render={({ field }) => (
-                <FormItem className='dark:text-white'>
-                  <FormLabel>Quantidade</FormLabel>
-                  <FormControl>
-                    <Input
-                      type='number'
-                      {...field}
-                      {...form.register('quantity', { valueAsNumber: true })}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
               name='grade'
               render={({ field }) => (
                 <FormItem className='dark:text-white'>
@@ -156,6 +139,23 @@ export function AssetsForm(props: AssetsFormProps) {
                       type='number'
                       {...field}
                       {...form.register('grade', { valueAsNumber: true })}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name='quantity'
+              render={({ field }) => (
+                <FormItem className='dark:text-white'>
+                  <FormLabel>Quantidade</FormLabel>
+                  <FormControl>
+                    <Input
+                      type='number'
+                      {...field}
+                      {...form.register('quantity', { valueAsNumber: true })}
                     />
                   </FormControl>
                   <FormMessage />

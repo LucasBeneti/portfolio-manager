@@ -6,6 +6,11 @@ import { useDialogContext } from '@/context/dialog';
 
 export function PortfolioPage() {
   const { handleOpenExportUserDataDialog } = useDialogContext();
+  /**
+   * TODO: passar o botão de Gerenciar dados para o menu, como uma opção mesmo ou até
+   * lá em baixo, no footer do drawer, como se fosse uma opção de configuração. Pois está atrapalhando
+   * bastante na UI de mobile.
+   */
   return (
     <ContentLayout>
       <section className='flex flex-col gap-2 mb-6 w-[80%]'>

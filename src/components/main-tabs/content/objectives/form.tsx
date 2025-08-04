@@ -71,9 +71,9 @@ export function ObjectivesForm() {
   }
 
   return (
-    <section className='flex flex-col gap-4'>
-      <h2 className='dark:text-white'>Minhas metas</h2>
-      <p className='dark:text-white'>
+    <section className='flex flex-col gap-4 mb-12'>
+      <h2 className='dark:text-white text-4xl font-black'>Minhas metas</h2>
+      <p className='dark:text-gray-400'>
         O objetivo aqui é setar as % de quanto e do que ela será composta.
       </p>
 
@@ -91,15 +91,18 @@ export function ObjectivesForm() {
         )}
       </section>
 
-      <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-4'>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className='flex flex-col gap-5 md:gap-4'
+      >
         {Object.entries(CATEGORY_BADGE_COLOR).map((el, index) => {
           const [key, value] = el;
           return (
             <div
-              className='dark:text-white flex justify-between w-full'
+              className='dark:text-white w-full flex flex-col gap-4 md:flex-row md:justify-between'
               key={`${key}_${index}`}
             >
-              <Label htmlFor={key}>
+              <Label htmlFor={key} className='font-bold text-lg md:text-md'>
                 {value.title}: {watchedValues[key as Category][0]}%
               </Label>
               <Controller
@@ -113,7 +116,7 @@ export function ObjectivesForm() {
                     step={1}
                     value={field.value}
                     onValueChange={field.onChange}
-                    className='max-w-[500px] dark'
+                    className='dark max-w-[500px]'
                   />
                 )}
               />
@@ -121,7 +124,7 @@ export function ObjectivesForm() {
           );
         })}
 
-        <section className='flex gap-4 items-center w-full justify-end'>
+        <section className='flex gap-4 items-center w-full justify-between md:justify-end mt-6'>
           <Button onClick={handleResetObjectives} variant='secondary'>
             Cancelar
           </Button>
