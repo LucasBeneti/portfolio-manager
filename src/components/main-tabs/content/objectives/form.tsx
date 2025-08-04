@@ -72,7 +72,7 @@ export function ObjectivesForm() {
 
   return (
     <section className='flex flex-col gap-4 mb-12'>
-      <h2 className='dark:text-white text-4xl font-black'>Minhas metas</h2>
+      <h2 className='dark:text-white text-2xl font-black'>Minhas metas</h2>
       <p className='dark:text-gray-400'>
         O objetivo aqui é setar as % de quanto e do que ela será composta.
       </p>
@@ -87,7 +87,9 @@ export function ObjectivesForm() {
           {totalAllocation}%
         </p>
         {isTotalAllocationInvalid && (
-          <p className='text-red-400'>Alocação não deve ultrapassar 100%.</p>
+          <p className='text-red-400 font-bold'>
+            Alocação não deve ultrapassar 100%.
+          </p>
         )}
       </section>
 

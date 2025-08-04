@@ -47,7 +47,7 @@ export function NewInvestimentForm() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(handleAddUserSuggestions)}
-        className='dark flex gap-4 items-end justi mt-4'
+        className='dark flex gap-4 items-end  mt-4 w-full'
       >
         <FormField
           control={form.control}
@@ -70,7 +70,9 @@ export function NewInvestimentForm() {
             </FormItem>
           )}
         />
-        <Button type='submit'>Calcular</Button>
+        <Button type='submit' className='w-1/2'>
+          Calcular
+        </Button>
       </form>
     </Form>
   );

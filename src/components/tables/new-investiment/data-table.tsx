@@ -91,7 +91,7 @@ export function InvestmentTable({ data }: { data?: Array<InvestmentData> }) {
         </Table>
       </div>
 
-      <div className='flex items-center justify-between text-sm text-muted-foreground'>
+      <div className='flex flex-col items-end md:flex-row md:items-center md:justify-between text-sm text-muted-foreground'>
         <div>
           {table.getFilteredRowModel().rows.length} de{' '}
           {table.getCoreRowModel().rows.length} linha(s)
