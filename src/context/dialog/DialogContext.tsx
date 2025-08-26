@@ -11,6 +11,7 @@ type DialogContextValue = {
   handleOpenNewAssetDialog: (d?: HandleOpenNewAssetDialogParams) => void;
   handleOpenExportUserDataDialog: () => void;
   handleOpenDollarQuoteDialog: () => void;
+  handleOpenConfirmDeleteAssetDialog: (id: string) => void;
   closeDollarQuoteDialog: () => void;
   closeAssetDialog: () => void;
 };

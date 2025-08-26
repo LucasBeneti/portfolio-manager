@@ -13,7 +13,7 @@ export function AssetsContent() {
   return (
     <>
       <section className='flex justify-between items-center'>
-        <p className='dark:text-white text-lg font-black'>Seus ativos:</p>
+        <p className='dark:text-white text-2xl font-black'>Seus ativos:</p>
         <Button onClick={() => handleOpenNewAssetDialog()}>
           <Plus />
           Adicionar ativo

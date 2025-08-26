@@ -6,6 +6,7 @@ import { ImportExportUserDataForm } from '@/components/forms/import-user-data';
 import type { HandleOpenNewAssetDialogParams } from './DialogContext';
 import { DialogContext } from './DialogContext';
 import { USDQuoteForm } from '@/components/USDQuotesForm/USDQuoteForm';
+import { useAssetsActions } from '@/hooks/use-assets-actions';
 
 /**
  *
@@ -23,6 +24,9 @@ export function DialogProvider({ children }: PropsWithChildren) {
     useState<boolean>(false);
   const [openDollarQuoteDialog, setOpenDollarQuoteDialog] =
     useState<boolean>(false);
+  const [openConfirmDeleteAssetDialog, setOpenConfirmDeleteAssetDialog] =
+    useState<boolean>(false);
+  const [assetIdToDelete, setAssetIdToDelete] = useState<string>('');
 
   function handleOpenNewAssetDialog(params?: HandleOpenNewAssetDialogParams) {
     if (params?.assetData) {
@@ -40,6 +44,11 @@ export function DialogProvider({ children }: PropsWithChildren) {
     setOpenDollarQuoteDialog(true);
   }
 
+  function handleOpenConfirmDeleteAssetDialog(id: string) {
+    setOpenConfirmDeleteAssetDialog(true);
+    setAssetIdToDelete(id);
+  }
+
   function closeAssetDialog() {
     setIsEditing(false);
     setOpenDialog(false);
@@ -53,10 +62,15 @@ export function DialogProvider({ children }: PropsWithChildren) {
     setOpenDollarQuoteDialog(false);
   }
 
+  function closeConfirmDeleteAssetDialog() {
+    setOpenConfirmDeleteAssetDialog(false);
+  }
+
   const value = {
     handleOpenNewAssetDialog,
     handleOpenExportUserDataDialog,
     handleOpenDollarQuoteDialog,
+    handleOpenConfirmDeleteAssetDialog,
     closeDollarQuoteDialog,
     closeAssetDialog,
     openAssetDialog,
@@ -77,6 +91,11 @@ export function DialogProvider({ children }: PropsWithChildren) {
       <DollarQuoteDialog
         isOpen={openDollarQuoteDialog}
         onClose={closeDollarQuoteDialog}
+      />
+      <ConfirmDeleteAssetDialog
+        isOpen={openConfirmDeleteAssetDialog}
+        onClose={closeConfirmDeleteAssetDialog}
+        deletingAssetId={assetIdToDelete}
       />
     </DialogContext.Provider>
   );
@@ -111,6 +130,44 @@ function DollarQuoteDialog(props: CommonDialogProps) {
       description='Esse valor é utilizado para alguns cálculos aqui, como nas sugestões de investimento.'
     >
       <USDQuoteForm />
+    </CustomDialog>
+  );
+}
+
+type ConfirmDeleteAssetDialogProps = CommonDialogProps & {
+  deletingAssetId: string;
+};
+
+function ConfirmDeleteAssetDialog(props: ConfirmDeleteAssetDialogProps) {
+  const { isOpen, onClose, deletingAssetId } = props;
+  const { handleDeleteAsset } = useAssetsActions();
+
+  function handleConfirmDelete() {
+    handleDeleteAsset(deletingAssetId);
+    onClose();
+  }
+
+  return (
+    <CustomDialog
+      isOpen={isOpen}
+      onClose={onClose}
+      title='Confirmar exclusão'
+      description='Tem certeza que deseja excluir esse ativo? Essa ação não pode ser desfeita.'
+    >
+      <div className='flex gap-4 justify-end'>
+        <button
+          className='px-4 py-2 bg-gray-200 rounded hover:bg-gray-300'
+          onClick={onClose}
+        >
+          Cancelar
+        </button>
+        <button
+          className='px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700'
+          onClick={handleConfirmDelete}
+        >
+          Excluir
+        </button>
+      </div>
     </CustomDialog>
   );
 }

@@ -16,7 +16,7 @@ export function AssetDialog(props: AssetDialogProps) {
       isOpen={isOpen}
       onClose={onClose}
       title='Novo ativo'
-      description='Adicione aqui um novo ativo para a sua carteira. Dependendo da nota, ele poderá ser considerado em um novo aporte.'
+      description='Adicione aqui um novo ativo para a sua carteira. Se a nota for maior que zero, ele será considerado para um novo aporte.'
     >
       <AssetsForm initialData={props.initialData} isEdit={isEdit} />
     </CustomDialog>

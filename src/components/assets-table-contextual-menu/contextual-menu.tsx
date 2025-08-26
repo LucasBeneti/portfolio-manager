@@ -2,7 +2,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
@@ -10,9 +9,12 @@ import { Button } from '../ui/button';
 import { MoreHorizontal } from 'lucide-react';
 import { useAssetsActions } from '@/hooks/use-assets-actions';
 import type { Asset } from '@/interfaces';
+import { useDialogContext } from '@/context/dialog';
 
 export function AssetsTableContextualMenu({ asset }: { asset: Asset }) {
-  const { handleDeleteAsset, handleEditAsset } = useAssetsActions();
+  const { handleEditAsset } = useAssetsActions();
+  const { handleOpenConfirmDeleteAssetDialog } = useDialogContext();
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -22,7 +24,6 @@ export function AssetsTableContextualMenu({ asset }: { asset: Asset }) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align='end' className='dark'>
-        <DropdownMenuLabel>Ações</DropdownMenuLabel>
         <DropdownMenuItem
           onClick={() => handleEditAsset(asset)}
           className='dark:text-white'
@@ -31,7 +32,7 @@ export function AssetsTableContextualMenu({ asset }: { asset: Asset }) {
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem
-          onClick={() => handleDeleteAsset(asset.id)}
+          onClick={() => handleOpenConfirmDeleteAssetDialog(asset.id)}
           className='dark:text-red-400'
         >
           Excluir

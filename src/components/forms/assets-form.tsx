@@ -25,7 +25,7 @@ const formSchema = z.object({
   name: z.string().min(2).max(40),
   quantity: z.number(),
   currentValue: z.number(),
-  grade: z.number(),
+  grade: z.number().max(11, 'Nota máxima é 11.'),
 });
 
 type FormType = z.infer<typeof formSchema>;
@@ -58,6 +58,10 @@ export function AssetsForm(props: AssetsFormProps) {
   }
   function onSubmit(values: Partial<FormType>) {
     try {
+      if (form.getValues('category') === 'fixed-income-br') {
+        values.quantity = 1;
+      }
+
       if (isEdit) {
         handleEditUserAsset(values as Asset);
       } else {
@@ -75,6 +79,10 @@ export function AssetsForm(props: AssetsFormProps) {
       );
     }
   }
+
+  const disableQuantityField = Boolean(
+    form.watch('category') === 'fixed-income-br'
+  );
 
   return (
     <Form {...form}>
@@ -139,6 +147,7 @@ export function AssetsForm(props: AssetsFormProps) {
                       type='number'
                       {...field}
                       {...form.register('grade', { valueAsNumber: true })}
+                      max={11}
                     />
                   </FormControl>
                   <FormMessage />
@@ -156,6 +165,8 @@ export function AssetsForm(props: AssetsFormProps) {
                       type='number'
                       {...field}
                       {...form.register('quantity', { valueAsNumber: true })}
+                      value={disableQuantityField ? 1 : field.value}
+                      disabled={disableQuantityField}
                     />
                   </FormControl>
                   <FormMessage />
