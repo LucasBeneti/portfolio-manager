@@ -64,9 +64,6 @@ export function UserInformationProvider(props: React.PropsWithChildren) {
     });
   }, [userAssets, quotes]);
 
-  console.log('userObjectives', userObjectives);
-  console.log('userAssets', userAssets);
-
   function handleSetUSDBRLQuote(value: { usdBrlQuote: number }) {
     const { usdBrlQuote } = value;
     setUsdBrlQuote(usdBrlQuote);
@@ -114,13 +111,11 @@ export function UserInformationProvider(props: React.PropsWithChildren) {
     }
 
     if (storedUsdBrlQuote && storedUsdBrlQuote !== 'undefined') {
-      console.log('storedUsdBrlQuote', storedUsdBrlQuote);
       setUsdBrlQuote(parseFloat(JSON.parse(storedUsdBrlQuote)));
     }
   }, []);
 
   const handleAddUserObjectives = React.useCallback((data: UserObjectives) => {
-    console.log('handleAddUserObjectives data', data);
     setUserObjectives(data);
     localStorage.setItem(
       `${LOCAL_STORAGE_PREFIX}userObjectives`,
@@ -179,15 +174,11 @@ export function UserInformationProvider(props: React.PropsWithChildren) {
       const suggestionRuns = [];
       suggestionRuns.push(suggestions);
 
-      console.log('suggestionRuns', suggestionRuns);
       const mergedSuggestions = mergeAssetsAndSuggestions(
         userAssets,
         suggestions
       );
-      console.log(
-        'handleAddUserSuggestions => mergedSuggestions',
-        mergedSuggestions
-      );
+
       setInvestmentSuggestions(mergedSuggestions);
       localStorage.setItem(
         `${LOCAL_STORAGE_PREFIX}investmentSuggestio`,
@@ -198,7 +189,6 @@ export function UserInformationProvider(props: React.PropsWithChildren) {
         `${LOCAL_STORAGE_PREFIX}userSuggestions`,
         JSON.stringify(userSuggestions)
       );
-      console.log('finalSuggestions', suggestions);
     },
     [userAssets, userObjectives, userSuggestions]
   );

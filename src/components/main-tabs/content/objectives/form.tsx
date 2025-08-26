@@ -66,9 +66,7 @@ export function ObjectivesForm() {
 
   const isTotalAllocationInvalid = totalAllocation > 100;
 
-  function handleResetObjectives() {
-    console.log('resetting to prev objectives');
-  }
+  function handleResetObjectives() {}
 
   return (
     <section className='flex flex-col gap-4 mb-12'>

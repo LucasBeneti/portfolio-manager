@@ -50,7 +50,6 @@ export function ImportExportUserDataForm() {
 
     try {
       const file = data.file[0];
-      console.log('Processing file:', file.name);
 
       const fileContent = await file.text();
 
@@ -60,12 +59,8 @@ export function ImportExportUserDataForm() {
         const stringValue =
           typeof value === 'string' ? value : JSON.stringify(value);
         localStorage.setItem(key, stringValue);
-        console.log(`Stored in localStorage: ${key} = ${stringValue}`);
       });
 
-      console.log(
-        'File processed and data stored in localStorage successfully!'
-      );
       form.reset();
       setSelectedFile(null);
     } catch (error) {

@@ -18,19 +18,19 @@ O app pode ser visto [aqui](https://portfolio-manager-hgak.onrender.com)
 
 #### Bugs e implementações para fazer
 
-- [ ] remover logs de debug
-- [ ] Aba de ativos
-  - [ ] Adicionar ativo
-  - [ ] quando a categoria for renda fixa
-    - [ ] fixar a quantidade em 1 e dar um disable no campo
-  - [ ] remover renda fixa internacional, por ser um caso muito específico
-  - [ ] na categoria, mudar o valor de FII para Fundos Imobiliários
-  - [ ] na Nota, limitar em um valor máximo, tipo 10
-  - [ ] arrumar o subtítulo "Adicione aqui um novo ativo para a sua carteira. Dependendo da nota, ele poderá ser considerado em um novo aporte." do modal, onde a segunda frase deve ser: "Se a nota for diferente de zero, ele será considerado para um novo aporte."
-  - [ ] no menu contextual das linhas, retirar o "Ações", pode confundir
-  - [ ] aumentar o tamanho do "Seus ativos
-  - [ ] fazer um modal de confirmar exclusão de ativo na tabela
-    - [ ] essa ação deve ser cancelável para evitar dor de cabeça
+- [x] remover logs de debug
+- [x] Aba de ativos
+  - [x] Adicionar ativo
+  - [x] quando a categoria for renda fixa
+    - [x] fixar a quantidade em 1 e dar um disable no campo
+  - [x] remover renda fixa internacional, por ser um caso muito específico
+  - [x] na categoria, mudar o valor de FII para Fundos Imobiliários
+  - [x] na Nota, limitar em um valor máximo, tipo 10
+  - [x] arrumar o subtítulo "Adicione aqui um novo ativo para a sua carteira. Dependendo da nota, ele poderá ser considerado em um novo aporte." do modal, onde a segunda frase deve ser: "Se a nota for maior que zero, ele será considerado para um novo aporte."
+  - [x] no menu contextual das linhas, retirar o "Ações", pode confundir
+  - [x] aumentar o tamanho do "Seus ativos
+  - [x] fazer um modal de confirmar exclusão de ativo na tabela
+    - [x] essa ação deve ser cancelável para evitar dor de cabeça
 - [ ] Aba de metas
   - [ ] ver se faz sentido ter o botão Cancelar, porque não sei o que ele faz no momento
     - [ ] talvez tenho que ver se seria uma boa ele resetar para o estado anterior, já que o que temos salvo no localStorage, não é alterado a cada mudança dos ranges, certo?

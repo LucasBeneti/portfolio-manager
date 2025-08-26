@@ -20,16 +20,19 @@ export function getCurrentAssetsState(assets?: Array<Asset>) {
     crypto: 0,
   };
   const sumsByAsset = Object.entries(assetsByCategory).length
-    ? Object.entries(assetsByCategory).reduce((acc, curr: any) => {
-        const [category, assetArr] = curr;
-        return {
-          ...acc,
-          [category]: assetArr?.reduce((acc: number, curr: Asset) => {
-            const currentAssetValue = curr.currentValue * curr.quantity;
-            return currentAssetValue + acc;
-          }, 0),
-        };
-      }, initialSumByAsset as Record<string, number>)
+    ? Object.entries(assetsByCategory).reduce(
+        (acc, curr: any) => {
+          const [category, assetArr] = curr;
+          return {
+            ...acc,
+            [category]: assetArr?.reduce((acc: number, curr: Asset) => {
+              const currentAssetValue = curr.currentValue * curr.quantity;
+              return currentAssetValue + acc;
+            }, 0),
+          };
+        },
+        initialSumByAsset as Record<string, number>
+      )
     : initialSumByAsset;
 
   const totalLedgerValue = Object.values(sumsByAsset).reduce(
@@ -71,11 +74,9 @@ export function getSuggestions(
 
   // deficits para ver o que esta underserved e ordenados (desc)
   deficits.sort((a, b) => b.value - a.value);
-  console.log('deficits', deficits);
 
   let remainingInvestment = newInvestment;
   const allocationByCategory: Record<Category, number> = {
-    'fixed-income-us': 0,
     'fixed-income-br': 0,
     'stocks-br': 0,
     'stocks-us': 0,
@@ -193,7 +194,6 @@ export function getSuggestions(
   //   }
   // }
 
-  console.log('AFTER SECOND RUN => finalSuggestions', finalSuggestions);
   return finalSuggestions.filter((s) => {
     if (typeof s.suggestedAmount === 'number') {
       return s.suggestedAmount > 0;
