@@ -70,7 +70,7 @@ export function NewInvestimentForm() {
             </FormItem>
           )}
         />
-        <Button type='submit' className='w-1/2'>
+        <Button type='submit' className='w-32'>
           Calcular
         </Button>
       </form>

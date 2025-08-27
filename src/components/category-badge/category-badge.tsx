@@ -11,5 +11,5 @@ export function CategoryBadge(props: CategoryBadgeProps) {
   const mappedAsset = CATEGORY_BADGE_COLOR[name];
   const assetTitle = mappedAsset?.title || name;
   const styling = mappedAsset?.styling || '';
-  return <Badge className={styling}>{assetTitle}</Badge>;
+  return <Badge className={[styling, 'mx-3'].join(' ')}>{assetTitle}</Badge>;
 }

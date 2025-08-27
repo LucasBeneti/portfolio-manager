@@ -6,7 +6,7 @@ import type { Category, InvestmentData } from '@/interfaces';
 export const columns: ColumnDef<InvestmentData>[] = [
   {
     accessorKey: 'category',
-    header: 'Categoria',
+    header: () => <div className='mx-3 text-left'>Categoria</div>,
     cell: ({ row }) => {
       const category = row.getValue('category') as string;
       return <CategoryBadge name={category as Category} />;
@@ -27,7 +27,7 @@ export const columns: ColumnDef<InvestmentData>[] = [
   {
     accessorKey: 'currentAmount',
     header: () => (
-      <div className='max-w-24 text-wrap text-center'>Atual ($)</div>
+      <div className='max-w-24 text-wrap text-right'>Atual ($)</div>
     ),
     cell: ({ row }) => {
       const amount = row.getValue('currentAmount') as number;
@@ -44,7 +44,7 @@ export const columns: ColumnDef<InvestmentData>[] = [
   {
     accessorKey: 'currentPrice',
     header: () => (
-      <div className='max-w-24 text-wrap text-center'>Preço atual ($)</div>
+      <div className='max-w-24 text-wrap text-right'>Preço atual ($)</div>
     ),
     cell: ({ row }) => {
       const price = row.getValue('currentPrice') as number;
@@ -60,7 +60,7 @@ export const columns: ColumnDef<InvestmentData>[] = [
   },
   {
     accessorKey: 'grade',
-    header: 'Nota',
+    header: () => <div className='text-wrap text-center'>Nota</div>,
     cell: ({ row }) => {
       const grade = row.getValue('grade') as number;
       return (
@@ -70,8 +70,8 @@ export const columns: ColumnDef<InvestmentData>[] = [
               grade >= 8
                 ? 'bg-green-100 text-green-800'
                 : grade >= 6
-                ? 'bg-yellow-100 text-yellow-800'
-                : 'bg-red-100 text-red-800'
+                  ? 'bg-yellow-100 text-yellow-800'
+                  : 'bg-red-100 text-red-800'
             }`}
           >
             {grade.toFixed(1)}
@@ -83,7 +83,7 @@ export const columns: ColumnDef<InvestmentData>[] = [
   {
     accessorKey: 'suggestedInvestimentAmount',
     header: () => (
-      <div className='max-w-24 text-wrap text-center'>
+      <div className='max-w-24 text-wrap text-right'>
         Sugestão de aporte ($)
       </div>
     ),
@@ -102,7 +102,7 @@ export const columns: ColumnDef<InvestmentData>[] = [
   {
     accessorKey: 'suggestedUnitsAmount',
     header: () => (
-      <div className='max-w-24 text-wrap text-center'>
+      <div className='max-w-24 text-wrap text-right'>
         Sugestão de aporte (un.)
       </div>
     ),

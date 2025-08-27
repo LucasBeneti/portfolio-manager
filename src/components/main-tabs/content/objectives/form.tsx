@@ -65,7 +65,7 @@ export function ObjectivesForm() {
   }, [watchedValues]);
 
   const isTotalAllocationInvalid = totalAllocation > 100;
-
+  const isTotalAllocationLessThan100 = totalAllocation < 100;
   function handleResetObjectives() {}
 
   return (
@@ -86,7 +86,13 @@ export function ObjectivesForm() {
         </p>
         {isTotalAllocationInvalid && (
           <p className='text-red-400 font-bold'>
-            Alocação não deve ultrapassar 100%.
+            Alocação total deve ser de 100%, nem menos e nem mais.
+          </p>
+        )}
+        {isTotalAllocationLessThan100 && (
+          <p className='text-yellow-400 font-bold'>
+            A alocação total deve ser 100%, você ainda pode alocar mais{' '}
+            {100 - totalAllocation}%.
           </p>
         )}
       </section>
@@ -128,7 +134,10 @@ export function ObjectivesForm() {
           <Button onClick={handleResetObjectives} variant='secondary'>
             Cancelar
           </Button>
-          <Button type='submit' disabled={isTotalAllocationInvalid}>
+          <Button
+            type='submit'
+            disabled={isTotalAllocationInvalid || isTotalAllocationLessThan100}
+          >
             Confirmar
           </Button>
         </section>

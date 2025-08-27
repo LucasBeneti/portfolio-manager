@@ -72,6 +72,7 @@ export function DialogProvider({ children }: PropsWithChildren) {
     handleOpenDollarQuoteDialog,
     handleOpenConfirmDeleteAssetDialog,
     closeDollarQuoteDialog,
+    closeExportUserDataDialog,
     closeAssetDialog,
     openAssetDialog,
   };
@@ -113,7 +114,7 @@ function ExportImportUserDataDialog(props: CommonDialogProps) {
       isOpen={isOpen}
       onClose={onClose}
       title='Exportar dados'
-      description='Exporta os dados armazenados no localStorage aqui do browser para ser utilizado em outro navegador.'
+      description='Aqui você pode exportar todos os dados armazenados no seu navegador, ou importar um arquivo JSON com dados previamente exportados.'
     >
       <ImportExportUserDataForm />
     </CustomDialog>

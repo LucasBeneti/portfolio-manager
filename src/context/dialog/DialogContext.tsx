@@ -13,6 +13,7 @@ type DialogContextValue = {
   handleOpenDollarQuoteDialog: () => void;
   handleOpenConfirmDeleteAssetDialog: (id: string) => void;
   closeDollarQuoteDialog: () => void;
+  closeExportUserDataDialog: () => void;
   closeAssetDialog: () => void;
 };
 

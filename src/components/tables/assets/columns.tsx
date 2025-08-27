@@ -12,7 +12,7 @@ export const columns: ColumnDef<Asset>[] = [
   },
   {
     accessorKey: 'category',
-    header: 'Categoria',
+    header: () => <div className='mx-3 text-left'>Categoria</div>,
     cell: ({ row }) => {
       const category = row.getValue('category') as Category;
 

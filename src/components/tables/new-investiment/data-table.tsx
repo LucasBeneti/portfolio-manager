@@ -5,7 +5,6 @@ import {
   getCoreRowModel,
   flexRender,
 } from '@tanstack/react-table';
-import { useState } from 'react';
 import {
   Table,
   TableBody,
@@ -14,14 +13,10 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { Input } from '@/components/ui/input';
-import { Search } from 'lucide-react';
 import { columns } from './columns';
 import type { InvestmentData } from '@/interfaces';
 
 export function InvestmentTable({ data }: { data?: Array<InvestmentData> }) {
-  const [globalFilter, setGlobalFilter] = useState('');
-
   const table = useReactTable({
     data: data || [],
     columns,
@@ -30,17 +25,6 @@ export function InvestmentTable({ data }: { data?: Array<InvestmentData> }) {
 
   return (
     <div className='space-y-4'>
-      {/* Filtro Global */}
-      <div className='relative'>
-        <Search className='absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground' />
-        <Input
-          placeholder='Buscar investimentos...'
-          value={globalFilter}
-          onChange={(e) => setGlobalFilter(e.target.value)}
-          className='pl-10 max-w-sm'
-        />
-      </div>
-
       <div className='rounded-md border dark'>
         <Table>
           <TableHeader>

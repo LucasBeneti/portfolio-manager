@@ -16,6 +16,7 @@ import { Input } from '@/components/ui/input';
 import { Upload, Download, File, X } from 'lucide-react';
 import { exportUserData } from '@/utils/export-data/export-user-data';
 import { toast } from 'sonner';
+import { useDialogContext } from '@/context/dialog';
 
 const fileSchema = z.object({
   file: z
@@ -39,6 +40,11 @@ type FileFormData = z.infer<typeof fileSchema>;
 export function ImportExportUserDataForm() {
   const [selectedFile, setSelectedFile] = React.useState<File | null>(null);
   const [isUploading, setIsUploading] = React.useState(false);
+  const { closeExportUserDataDialog } = useDialogContext();
+  function handleOpenExportDataDialog() {
+    exportUserData();
+    closeExportUserDataDialog();
+  }
 
   const form = useForm<FileFormData>({
     resolver: zodResolver(fileSchema),
@@ -63,6 +69,7 @@ export function ImportExportUserDataForm() {
 
       form.reset();
       setSelectedFile(null);
+      closeExportUserDataDialog();
     } catch (error) {
       console.error('Failed to process file:', error);
       toast.error('Falha ao importar o arquivo! :(');
@@ -118,7 +125,7 @@ export function ImportExportUserDataForm() {
           render={() => (
             <FormItem>
               <FormLabel className='text-sm font-medium text-gray-700'>
-                Choose File
+                Escolher arquivo
               </FormLabel>
               <FormControl>
                 <div className='space-y-4'>
@@ -140,10 +147,10 @@ export function ImportExportUserDataForm() {
                     >
                       <Upload className='w-8 h-8 text-gray-400 mb-2' />
                       <span className='text-sm text-gray-500'>
-                        Click to select a file
+                        Clique para selecionar um arquivo
                       </span>
                       <span className='text-xs text-gray-400 mt-1'>
-                        Max 5MB • JSON files only
+                        Máximo 5MB • apenas arquivos JSON
                       </span>
                     </label>
                   </div>
@@ -197,7 +204,7 @@ export function ImportExportUserDataForm() {
             ) : (
               <>
                 <Upload className='w-4 h-4 mr-2' />
-                Upload File
+                Importar
               </>
             )}
           </Button>
@@ -206,10 +213,10 @@ export function ImportExportUserDataForm() {
             type='button'
             variant='secondary'
             className='dark'
-            onClick={exportUserData}
+            onClick={handleOpenExportDataDialog}
           >
             <Download className='w-4 h-4 mr-2' />
-            Exportar dados armazenados
+            Exportar
           </Button>
         </section>
       </div>
