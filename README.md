@@ -51,3 +51,8 @@ O app pode ser visto [aqui](https://portfolio-manager-hgak.onrender.com)
   - [ ] ver se faz sentido ter o botão Cancelar, porque não sei o que ele faz no momento
     - [ ] talvez tenho que ver se seria uma boa ele resetar para o estado anterior, já que o que temos salvo no localStorage, não é alterado a cada mudança dos ranges, certo? (melhoria)
   - [ ] colocar um texto mais explicativo sobre as metas, o que significam e porque (por mais que seja óbvio)
+- [ ] Páginas de textos e conteúdos
+  - [ ] preciso revisar o conteúdo textual delas pra ver se faz sentido e se está faltando alguma coisa
+  - [ ] a margem lateral e a fonte no mobile está um pouco pequena, rever isso
+- [ ] Ícone do menu side bar está um pouco pequeno no mobile, deve ficar melhor ele maior
+- [ ] na aba de meus ativos, seria interessanter ter implementado um resuldo das % que temos alocado no momento, para o usuário entender como que está, comparado à onde quer chegar
