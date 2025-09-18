@@ -1,4 +1,4 @@
-('use client');
+'use client';
 
 import * as React from 'react';
 import { TrendingUp } from 'lucide-react';
@@ -19,51 +19,47 @@ import {
   ChartTooltipContent,
 } from '@/components/ui/chart';
 import { useUserInformation } from '@/context/user-information';
-import { computedUserAssets } from '@/utils/assets-computation';
+import {
+  computedUserAssets,
+  convertComputedAssetsToChart,
+} from '@/utils/assets-computation';
 
 export const description = 'A donut chart with text';
 
-const chartData = [
-  { browser: 'chrome', visitors: 275, fill: 'var(--color-chrome)' },
-  { browser: 'safari', visitors: 200, fill: 'var(--color-safari)' },
-  { browser: 'firefox', visitors: 287, fill: 'var(--color-firefox)' },
-  { browser: 'edge', visitors: 173, fill: 'var(--color-edge)' },
-  { browser: 'other', visitors: 190, fill: 'var(--color-other)' },
-];
-
 const chartConfig = {
-  visitors: {
-    label: 'Visitors',
+  investment: {
+    label: 'Categoria',
   },
-  chrome: {
-    label: 'Chrome',
-    color: 'var(--chart-1)',
+  'fixed-income-br': {
+    label: 'Renda fixa',
+    color: 'var(--chart-fixed-income-br)',
   },
-  safari: {
-    label: 'Safari',
-    color: 'var(--chart-2)',
+  'stocks-br': {
+    label: 'Ações Brasileiras',
+    color: 'var(--chart-stocks-br)',
   },
-  firefox: {
-    label: 'Firefox',
-    color: 'var(--chart-3)',
+  'stocks-us': {
+    label: 'Ações Americanas',
+    color: 'var(--chart-stocks-us)',
   },
-  edge: {
-    label: 'Edge',
-    color: 'var(--chart-4)',
+  fii: {
+    label: 'Fundos Imobiliários',
+    color: 'var(--chart-fii)',
   },
-  other: {
-    label: 'Other',
-    color: 'var(--chart-5)',
+  crypto: {
+    label: 'Crypto',
+    color: 'var(--chart-crypto)',
   },
 } satisfies ChartConfig;
 
 export function PortfolioAllocationChart() {
   const { assets } = useUserInformation();
-  computedUserAssets(assets);
+  const compAssets = computedUserAssets(assets);
+  const formattedData = convertComputedAssetsToChart(compAssets);
 
   const totalVisitors = React.useMemo(() => {
-    return chartData.reduce((acc, curr) => acc + curr.visitors, 0);
-  }, []);
+    return formattedData.reduce((acc, curr) => acc + curr.amountInvested, 0);
+  }, [formattedData]);
   return (
     <Card className='flex flex-col'>
       <CardHeader className='items-center pb-0'>
@@ -81,9 +77,9 @@ export function PortfolioAllocationChart() {
               content={<ChartTooltipContent hideLabel />}
             />
             <Pie
-              data={chartData}
-              dataKey='visitors'
-              nameKey='browser'
+              data={formattedData}
+              dataKey='amountInvested'
+              nameKey='investment'
               innerRadius={60}
               strokeWidth={5}
             >
@@ -121,6 +117,14 @@ export function PortfolioAllocationChart() {
         </ChartContainer>
       </CardContent>
       <CardFooter className='flex-col gap-2 text-sm'>
+        {formattedData.map((i) => {
+          return (
+            <p>
+              {i.investment}:{' '}
+              {((i.amountInvested / totalVisitors) * 100).toFixed(2)}%
+            </p>
+          );
+        })}
         <div className='flex items-center gap-2 leading-none font-medium'>
           Trending up by 5.2% this month <TrendingUp className='h-4 w-4' />
         </div>

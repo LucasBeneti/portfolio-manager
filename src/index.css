@@ -77,6 +77,12 @@
   --sidebar-accent-foreground: oklch(0.21 0.006 285.885);
   --sidebar-border: oklch(0.92 0.004 286.32);
   --sidebar-ring: oklch(0.705 0.015 286.067);
+
+  --chart-fixed-income-br: oklch(85.2% 0.199 91.936);
+  --chart-stocks-br: oklch(70.7% 0.165 254.624);
+  --chart-stocks-us: oklch(78.9% 0.154 211.53);
+  --chart-fii: oklch(67.3% 0.182 276.935);
+  --chart-crypto: oklch(74% 0.238 322.16);
 }
 
 .dark {

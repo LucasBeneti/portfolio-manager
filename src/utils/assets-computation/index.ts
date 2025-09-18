@@ -29,7 +29,6 @@ export function computedUserAssets(assets?: Asset[]): ComputedUserAssets {
     return entries.category;
   });
 
-  console.log('categorygroupby', categorygroup);
   const amountByCategory = Object.entries(categorygroup).reduce((acc, curr) => {
     const [category, assets] = curr;
 
@@ -49,22 +48,16 @@ export function computedUserAssets(assets?: Asset[]): ComputedUserAssets {
     };
   }, {} as ComputedUserAssets);
 
-  console.log('amountByCategory', amountByCategory);
-  return {
-    'fixed-income-br': {
-      totalAmount: 0,
-    },
-    'stocks-br': {
-      totalAmount: 0,
-    },
-    'stocks-us': {
-      totalAmount: 0,
-    },
-    fii: {
-      totalAmount: 0,
-    },
-    crypto: {
-      totalAmount: 0,
-    },
-  };
+  return amountByCategory;
+}
+
+export function convertComputedAssetsToChart(compAssets: ComputedUserAssets) {
+  return Object.entries(compAssets).map((investments) => {
+    const [category, { totalAmount }] = investments;
+    return {
+      investment: category,
+      amountInvested: totalAmount,
+      fill: `var(--chart-${category})`,
+    };
+  });
 }
