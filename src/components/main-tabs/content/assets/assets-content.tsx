@@ -7,8 +7,8 @@ import { Plus } from 'lucide-react';
 export function AssetsContent() {
   const { handleOpenNewAssetDialog } = useDialogContext();
   return (
-    <section className='flex gap-4 justify-center w-full'>
-      <section className='max-w-[75%]'>
+    <section className='flex flex-col md:flex-row gap-4'>
+      <section className='md:max-w-[75%]'>
         <section className='flex justify-between items-center'>
           <p className='dark:text-white text-2xl font-black'>Seus ativos:</p>
           <Button onClick={() => handleOpenNewAssetDialog()}>
