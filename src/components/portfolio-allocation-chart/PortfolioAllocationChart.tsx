@@ -1,7 +1,5 @@
-'use client';
-
 import * as React from 'react';
-import { LucideArrowBigUp, LucideArrowBigDown } from 'lucide-react';
+import { ArrowUp, ArrowDown } from 'lucide-react';
 import { Label, Pie, PieChart } from 'recharts';
 
 import {
@@ -22,6 +20,8 @@ import {
   computedUserAssets,
   convertComputedAssetsToChart,
 } from '@/utils/assets-computation';
+import type { Category } from '@/interfaces';
+import { CATEGORY_BADGE_COLOR } from '@/contants/category';
 
 export const description = 'A donut chart with text';
 
@@ -132,8 +132,13 @@ export function PortfolioAllocationChart() {
   );
 }
 
+type FormattedInvestment = {
+  investment: Category;
+  amountInvested: number;
+  fill: string;
+};
 type ChartFooterCategoryDataProps = {
-  formattedData: any;
+  formattedData: FormattedInvestment[];
   totalInvested: number;
 };
 function ChartFooterCategoryData(props: ChartFooterCategoryDataProps) {
@@ -141,29 +146,32 @@ function ChartFooterCategoryData(props: ChartFooterCategoryDataProps) {
   const { objectives } = useUserInformation();
 
   return (
-    <section className='flex flex-col items-start w-full gap-2'>
-      {formattedData.map((i: any) => {
+    <section className='flex flex-col items-start w-full gap-2 hover:cursor-default'>
+      {formattedData.map((i) => {
         const percentInvested = (i.amountInvested / totalInvested) * 100;
         const isOverObjective =
-          objectives && objectives[i.investment] > percentInvested;
+          objectives && objectives[i.investment] < percentInvested;
         return (
           <span className='flex gap-1 items-center hover:scale-105 transition-all'>
+            <span
+              className={`w-3 h-3 rounded-xs ${CATEGORY_BADGE_COLOR[i.investment]?.styling}`}
+            ></span>
             <p>
               {chartConfig?.[i.investment as keyof typeof chartConfig].label}:
             </p>
             <p
-              className={`font-bold ${isOverObjective ? 'text-green-400' : 'text-red-400'}`}
+              className={`font-bold ${isOverObjective ? 'text-green-300' : 'text-red-300'}`}
             >
               {percentInvested.toFixed(2)}%
             </p>
             <p>
               {isOverObjective ? (
-                <LucideArrowBigUp
+                <ArrowUp
                   stroke='oklch(79.2% 0.209 151.711)'
                   fill='oklch(79.2% 0.209 151.711)'
                 />
               ) : (
-                <LucideArrowBigDown
+                <ArrowDown
                   stroke='oklch(70.4% 0.191 22.216)'
                   fill='oklch(70.4% 0.191 22.216)'
                 />

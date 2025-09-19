@@ -51,11 +51,19 @@ export function computedUserAssets(assets?: Asset[]): ComputedUserAssets {
   return amountByCategory;
 }
 
-export function convertComputedAssetsToChart(compAssets: ComputedUserAssets) {
+type ConvertedComputedAssets = Array<{
+  investment: Category;
+  amountInvested: number;
+  fill: string;
+}>;
+
+export function convertComputedAssetsToChart(
+  compAssets: ComputedUserAssets
+): ConvertedComputedAssets {
   return Object.entries(compAssets).map((investments) => {
     const [category, { totalAmount }] = investments;
     return {
-      investment: category,
+      investment: category as Category,
       amountInvested: totalAmount,
       fill: `var(--chart-${category})`,
     };

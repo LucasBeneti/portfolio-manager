@@ -15,7 +15,7 @@ export const CATEGORY_BADGE_COLOR = {
     title: 'Ações americanas',
     styling: 'bg-cyan-400 text-slate-100 font-bold',
   },
-  fii: { title: 'FII', styling: 'bg-indigo-400 text-slate-100 font-bold' },
+  fii: { title: 'FII', styling: 'bg-emerald-400 text-slate-100 font-bold' },
   crypto: {
     title: 'Crypto',
     styling: 'bg-fuchsia-400 text-slate-100 font-bold',
