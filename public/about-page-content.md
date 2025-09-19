@@ -4,16 +4,18 @@ Aqui vamos esclarecer um pouco mais sobre a aplicação e como seus dados releva
 
 ### Como funciona
 
-Todos os dados impostos aqui no aplicativo não são enviados para nenhum lugar, são apeans armazenados localmente no `localStorage` (armazenamento do browser por domínio). Justamente por isso, para auxiliar no compartilhamentos dos seus dados e facilidade, no canto ingerior direito tem um botão que leva o usuário para exportar ou importar dados para sua aplicação.
+Todos os dados adicionados aqui no aplicativo não são enviados para nenhum lugar, apenas são armazenados localmente no `localStorage` (armazenamento do browser). E para para auxiliar no compartilhamentos dos seus dados, na parte inferior da aba lateral da aplicação, há um botão que leva o usuário para exportar ou importar dados para a sua carteira.
 
 #### Como as sugestões funcionam?
 
 Ocorre uma série de passos antes das sugestões finais, mas a sequência de acontecimentos é a seguinte:
 
 1. É verificado o estado atual da carteira, quais categorias tem mais ou menos alocação;
-2. levantamos os maiores deficits de alocaçào
-3. tendo o quanto colocar por ctegoria, vamos organizar dentro das categorias, os ativos por nota, para descobrir o peso daquele ativo na carteira e quanto ele deveria experimentar
-4. ...
+2. levantamos os maiores deficits de alocação, ou seja, onde a "falta" de investimento é maior, e ordenamos essas categorias para serem as primeiras servidas na distribuição em um novo aporte;
+3. com os objetivos já setados (a % para cada categoria de investimento), ordenamos os investimentos pela nota dada a cada um deles dentro de sua categoria e assim conseguimos um "peso" de quanto alocar para aquele investimento com aquela nota;
+4. tendo tudo isso listado, a tabela de sugestões é criada e a ordem que aparece, é a ordem do deficit de investimento;
+
+**Nota: quando vamos investir, pode ser que não encontremos um bom produto na hora e/ou que requer um investimento mínimo que é maior que o valor sugerido. Nesse momento seria melhor o investidor não se forçar a investir naquela categoria, e focar em outras.**
 
 ### Melhorias
 
