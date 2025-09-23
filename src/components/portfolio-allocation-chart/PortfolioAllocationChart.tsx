@@ -60,7 +60,7 @@ export function PortfolioAllocationChart() {
     return formattedData.reduce((acc, curr) => acc + curr.amountInvested, 0);
   }, [formattedData]);
   return (
-    <Card className='flex flex-col bg-gray-950'>
+    <Card className='flex flex-col bg-gray-950 md:min-w-[300px]'>
       <CardHeader className='items-center pb-0'>
         <CardTitle className='text-2xl text-center'>
           Total investido da carteira
