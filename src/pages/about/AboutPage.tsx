@@ -36,10 +36,28 @@ export function AboutPage() {
                 e ir aumentando ele com investimentos estudados e de confiança
                 para ele.
               </p>
-              <p>
-                Alguns links interessantes para entender essa estratégia, são os
-                seguintes:
-              </p>
+              <ul className='list-disc pl-5 flex flex-col gap-2'>
+                <li>
+                  <a
+                    href='https://en.wikipedia.org/wiki/Value_investing'
+                    target='_blank'
+                    rel='noreferrer'
+                    className='underline'
+                  >
+                    Value investing — Wikipedia
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href='https://en.wikipedia.org/wiki/Buy_and_hold'
+                    target='_blank'
+                    rel='noreferrer'
+                    className='underline'
+                  >
+                    Buy and hold — Wikipedia
+                  </a>
+                </li>
+              </ul>
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value='item-2'>
@@ -83,6 +101,41 @@ export function AboutPage() {
               <p>
                 E até aí tudo bem, a palavra final sempre fica com o investidor,
                 afinal, ele que vai tomar o risco e o dinheiro investido é dele.
+              </p>
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem value='item-4'>
+            <AccordionTrigger className='font-bold dark:text-gray-200'>
+              Meus dados estão seguros?
+            </AccordionTrigger>
+            <AccordionContent className='flex flex-col gap-4 text-balance text-[16px]'>
+              <p>
+                Sim. Todos os dados que você adiciona aqui ficam armazenados
+                apenas no seu navegador, no <code>localStorage</code>. Nada é
+                enviado para servidores externos — seus dados não saem do seu
+                computador.
+              </p>
+              <p>
+                Se quiser fazer um backup ou migrar para outro dispositivo, use
+                a opção de exportar dados disponível na aba lateral da aplicação.
+              </p>
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem value='item-5'>
+            <AccordionTrigger className='font-bold dark:text-gray-200'>
+              Como faço para levar meus dados para outro dispositivo?
+            </AccordionTrigger>
+            <AccordionContent className='flex flex-col gap-4 text-balance text-[16px]'>
+              <p>
+                Na parte inferior da aba lateral da aplicação, há um botão para
+                gerenciar seus dados. Por lá você pode exportar um arquivo com
+                todas as informações da sua carteira e, em outro dispositivo,
+                importar esse mesmo arquivo.
+              </p>
+              <p>
+                Esse arquivo contém todos os seus ativos, metas e configurações.
+                É uma forma prática de manter seus dados sincronizados entre
+                dispositivos sem depender de servidores externos.
               </p>
             </AccordionContent>
           </AccordionItem>

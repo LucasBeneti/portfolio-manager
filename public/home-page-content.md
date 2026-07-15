@@ -1,32 +1,34 @@
 # Organizador de Carteira
 
-### Objetivo
+Organize seus investimentos, defina metas e receba sugestões de aporte alinhadas com a sua estratégia — tudo armazenado localmente, sem enviar seus dados para lugar nenhum.
 
-Esse aplicativo é uma forma de balancear e manter uma carteira de
-investimentos, com diversas “categorias” nela. Considerando a
-estratégia de “buy & hold” e “value investing”, o investidor deveria
-estipular quanto de cada categoria ele deseja que sua carteira seja
-constituída. Isso é feito na forma de % na seção de Metas na aba de
-portfolio. Ali o investidor vai colocar quantos % ele quer aportado em
-cada categoria, por exemplo:
 
-- Renda fixa brasileira: 45%
+
+### Como usar
+
+**1. Cadastre seus ativos**
+
+Na aba "Meus ativos", adicione tudo que você já tem na carteira. Para cada ativo, escolha a categoria (ações brasileiras, FIIs, renda fixa, etc.) e dê uma nota de 0 a 10. Ativos com nota 0 não entram nas sugestões de aporte.
+
+**2. Defina suas metas**
+
+Na aba "Metas", distribua 100% da sua carteira ideal entre as categorias. Por exemplo:
+
+- Renda fixa: 45%
 - Ações brasileiras: 25%
 - Ações internacionais: 15%
-- Fundos Imobiliários: 15%
+- Fundos imobiliários: 15%
 
-Então essas são as proporções objetivas que o investidor quer manter
-em sua carteira. Na aba de Meus ativos, o investidor deverá cadastrar
-todos os investimentos que já tem e os que deseja ter, que já estudou
-e está confortável o bastante para ser considerado em novos aportes
-(que é o próximo passo).
+**3. Simule um novo aporte**
 
-Após o investidor colocar todos seus ativos, categorizando eles
-corretamente e em termos de valor também, se desejar, ele pode partir
-para a aba de “Novo aporte”, onde ele deve escolher o valor de seu novo
-aporte, e verá sugestões, levando em consideração as metas para a
-carteira e seus ativos atuais.
+Na aba "Novo aporte", informe o valor que pretende investir. O aplicativo vai comparar sua carteira atual com suas metas e sugerir quanto alocar em cada ativo, priorizando o que está mais abaixo da sua meta.
 
-Lembrando que tudo isso são sugestões e o investidor deve analisar se faz sentido para o momento dele e aportar como preferir. Mas saiba que elas não são computadas de forma aleatória, pois a ideia das sugestões é justamente sugerir o que está mais faltando para a carteira atual do investidor naquele momento, levando em consideração o estado atual da sua carteira e seus objetivos como investidor. Mais detalhes de como o algoritmo funciona na página de Mais informações.
 
-**Dúvidas e sugestões** podem ser encaminhadas para: lbeneti@gmail.com
+
+### O que esperar
+
+As sugestões são calculadas com base no **déficit de alocação** de cada categoria e na **nota** de cada ativo. Quanto maior a nota, maior o peso daquele ativo dentro da sua categoria.
+
+Os resultados são **sugestões**, não recomendações. O investidor sempre tem a palavra final — analise, pondere e decida o que faz sentido para o seu momento.
+
+Mais detalhes sobre o algoritmo na página **Sobre**.
