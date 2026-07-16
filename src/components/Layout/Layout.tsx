@@ -1,18 +1,13 @@
 import * as React from 'react';
-import { SidebarProvider, SidebarTrigger } from '../ui/sidebar';
-import { AppSidebar } from '../app-sidebar/app-sidebar';
+import { AppNav } from '../app-nav/app-nav';
 
 export function LayoutWrapper({ children }: { children: React.ReactNode }) {
   return (
-    <SidebarProvider className='dark' defaultOpen>
-      <AppSidebar />
-      <main className='dark:bg-gray-900 w-full pb-6 h-full'>
-        <SidebarTrigger
-          className='text-gray-900 dark:text-gray-50 size-14 md:size-12'
-          variant='ghost'
-        />
+    <div className='min-h-svh flex flex-col'>
+      <AppNav />
+      <main className='flex-1 w-full'>
         {children}
       </main>
-    </SidebarProvider>
+    </div>
   );
 }

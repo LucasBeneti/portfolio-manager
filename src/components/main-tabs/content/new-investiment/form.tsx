@@ -47,14 +47,14 @@ export function NewInvestimentForm() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(handleAddUserSuggestions)}
-        className='dark flex gap-4 items-end  mt-4 w-full'
+        className='flex gap-4 items-end  mt-4 w-full'
       >
         <FormField
           control={form.control}
           name='amount'
           render={({ field }) => (
             <FormItem>
-              <FormLabel className='dark:text-white font-bold'>
+              <FormLabel className='text-foreground font-bold'>
                 Amount (BRL)
               </FormLabel>
               <FormControl>
@@ -63,7 +63,7 @@ export function NewInvestimentForm() {
                   {...field}
                   onChange={handleValueChange}
                   value={displayValue}
-                  className='dark:text-white max-w-32'
+                  className='text-foreground max-w-32'
                 />
               </FormControl>
               <FormMessage />

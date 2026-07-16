@@ -27,10 +27,10 @@ export function CategorySelect({
 }) {
   return (
     <Select onValueChange={field.onChange} value={field.value}>
-      <SelectTrigger className='w-[180px] dark:text-white'>
+      <SelectTrigger className='w-[180px] text-foreground'>
         <SelectValue placeholder='Categiria do investimento' />
       </SelectTrigger>
-      <SelectContent className='dark'>
+      <SelectContent>
         <SelectGroup>
           <SelectLabel>Categoria</SelectLabel>
           <SelectItem value='fixed-income-br'>Renda Fixa</SelectItem>

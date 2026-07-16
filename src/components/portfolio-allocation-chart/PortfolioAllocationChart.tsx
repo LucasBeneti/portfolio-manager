@@ -60,7 +60,7 @@ export function PortfolioAllocationChart() {
     return formattedData.reduce((acc, curr) => acc + curr.amountInvested, 0);
   }, [formattedData]);
   return (
-    <Card className='flex flex-col bg-gray-950 md:min-w-[300px]'>
+    <Card className='flex flex-col md:min-w-[300px]'>
       <CardHeader className='items-center pb-0'>
         <CardTitle className='text-2xl text-center'>
           Total investido da carteira
@@ -81,7 +81,7 @@ export function PortfolioAllocationChart() {
               dataKey='amountInvested'
               nameKey='investment'
               innerRadius={75}
-              strokeWidth={5}
+              strokeWidth={8}
             >
               <Label
                 content={({ viewBox }) => {
@@ -152,7 +152,7 @@ function ChartFooterCategoryData(props: ChartFooterCategoryDataProps) {
         const isOverObjective =
           objectives && objectives[i.investment] < percentInvested;
         return (
-          <span className='flex gap-1 items-center hover:scale-105 transition-all'>
+          <span className='flex gap-1 items-center'>
             <span
               className={`w-3 h-3 rounded-xs ${CATEGORY_BADGE_COLOR[i.investment]?.styling}`}
             ></span>
@@ -166,15 +166,9 @@ function ChartFooterCategoryData(props: ChartFooterCategoryDataProps) {
             </p>
             <p>
               {isOverObjective ? (
-                <ArrowUp
-                  stroke='oklch(79.2% 0.209 151.711)'
-                  fill='oklch(79.2% 0.209 151.711)'
-                />
+                <ArrowUp className='text-chart-2' />
               ) : (
-                <ArrowDown
-                  stroke='oklch(70.4% 0.191 22.216)'
-                  fill='oklch(70.4% 0.191 22.216)'
-                />
+                <ArrowDown className='text-destructive' />
               )}
             </p>
           </span>

@@ -15,8 +15,8 @@ export function AboutPage() {
         {text ? <Markdown>{text}</Markdown> : null}
       </section>
 
-      <section className='dark w-full max-w-prose mt-12'>
-        <h3 className='text-2xl font-bold dark:text-gray-200'>
+      <section className='w-full max-w-prose mt-12'>
+        <h3 className='text-2xl font-bold text-foreground'>
           Perguntas frequentes:
         </h3>
         <Accordion
@@ -26,10 +26,10 @@ export function AboutPage() {
           defaultValue='item-1'
         >
           <AccordionItem value='item-1'>
-            <AccordionTrigger className='font-bold dark:text-gray-200'>
+            <AccordionTrigger className='font-bold text-foreground'>
               O que é "Buy and Hold" e "Value investing"?
             </AccordionTrigger>
-            <AccordionContent className='flex flex-col gap-4 text-balance dark:bg-blak text-[16px]'>
+            <AccordionContent className='flex flex-col gap-4 text-balance text-foreground'>
               <p>
                 São estratégias de investimento para investidores que se
                 entendem mais conservadores, cujo objetivo é manter o patrimônio
@@ -61,11 +61,11 @@ export function AboutPage() {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value='item-2'>
-            <AccordionTrigger className='font-bold dark:text-gray-200'>
+            <AccordionTrigger className='font-bold text-foreground'>
               Tenho um ativo na minha carteira, como faço para ele não ser mais
               sugerido?
             </AccordionTrigger>
-            <AccordionContent className='flex flex-col gap-4 text-balance text-[16px]'>
+            <AccordionContent className='flex flex-col gap-4 text-balance text-base'>
               <p>
                 Quando estamos adicionando ou editando um novo ativo na nossa
                 carteira, podemos colocar uma nota de 0 a 10 para ele. Essa nota
@@ -83,11 +83,11 @@ export function AboutPage() {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value='item-3'>
-            <AccordionTrigger className='font-bold dark:text-gray-200'>
+            <AccordionTrigger className='font-bold text-foreground'>
               Devo confiar cegamente no que a tabela de "Novo investimento" me
               diz?
             </AccordionTrigger>
-            <AccordionContent className='flex flex-col gap-4 text-balance text-[16px]'>
+            <AccordionContent className='flex flex-col gap-4 text-balance text-base'>
               <p>
                 Não, como a própria tabela diz, aquelas são sugestões de
                 investimento em um novo aporte no valor fornecido. É esperado
@@ -105,10 +105,10 @@ export function AboutPage() {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value='item-4'>
-            <AccordionTrigger className='font-bold dark:text-gray-200'>
+            <AccordionTrigger className='font-bold text-foreground'>
               Meus dados estão seguros?
             </AccordionTrigger>
-            <AccordionContent className='flex flex-col gap-4 text-balance text-[16px]'>
+            <AccordionContent className='flex flex-col gap-4 text-balance text-base'>
               <p>
                 Sim. Todos os dados que você adiciona aqui ficam armazenados
                 apenas no seu navegador, no <code>localStorage</code>. Nada é
@@ -122,10 +122,10 @@ export function AboutPage() {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value='item-5'>
-            <AccordionTrigger className='font-bold dark:text-gray-200'>
+            <AccordionTrigger className='font-bold text-foreground'>
               Como faço para levar meus dados para outro dispositivo?
             </AccordionTrigger>
-            <AccordionContent className='flex flex-col gap-4 text-balance text-[16px]'>
+            <AccordionContent className='flex flex-col gap-4 text-balance text-base'>
               <p>
                 Na parte inferior da aba lateral da aplicação, há um botão para
                 gerenciar seus dados. Por lá você pode exportar um arquivo com

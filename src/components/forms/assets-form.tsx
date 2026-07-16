@@ -86,7 +86,7 @@ export function AssetsForm(props: AssetsFormProps) {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-2 dark'>
+      <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-2'>
         <section className='flex flex-col gap-4'>
           <section className='flex gap-4'>
             <FormField
@@ -94,7 +94,7 @@ export function AssetsForm(props: AssetsFormProps) {
               name='category'
               render={({ field }) => (
                 <FormItem className=''>
-                  <FormLabel className='dark:text-white'>Categoria</FormLabel>
+                  <FormLabel className='text-foreground'>Categoria</FormLabel>
                   <FormControl>
                     <CategorySelect field={field} {...field} />
                   </FormControl>
@@ -106,7 +106,7 @@ export function AssetsForm(props: AssetsFormProps) {
               control={form.control}
               name='name'
               render={({ field }) => (
-                <FormItem className='dark:text-white'>
+                <FormItem className='text-foreground'>
                   <FormLabel>Nome</FormLabel>
                   <FormControl>
                     <Input placeholder='CDB CDI% BTG Pactual' {...field} />
@@ -121,7 +121,7 @@ export function AssetsForm(props: AssetsFormProps) {
               control={form.control}
               name='currentValue'
               render={({ field }) => (
-                <FormItem className='dark:text-white'>
+                <FormItem className='text-foreground'>
                   <FormLabel>Valor Atual</FormLabel>
                   <FormControl>
                     <Input
@@ -140,7 +140,7 @@ export function AssetsForm(props: AssetsFormProps) {
               control={form.control}
               name='grade'
               render={({ field }) => (
-                <FormItem className='dark:text-white'>
+                <FormItem className='text-foreground'>
                   <FormLabel>Nota</FormLabel>
                   <FormControl>
                     <Input
@@ -158,7 +158,7 @@ export function AssetsForm(props: AssetsFormProps) {
               control={form.control}
               name='quantity'
               render={({ field }) => (
-                <FormItem className='dark:text-white'>
+                <FormItem className='text-foreground'>
                   <FormLabel>Quantidade</FormLabel>
                   <FormControl>
                     <Input

@@ -20,10 +20,10 @@ export function CustomDialog(
   const { isOpen, onClose, title, description, children } = props;
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className='sm:max-w-md dark [&>button>svg]:dark:text-white'>
+      <DialogContent className='sm:max-w-md [&>button>svg]:text-foreground'>
         <DialogHeader>
           {title && (
-            <DialogTitle className='dark:text-white'>{title}</DialogTitle>
+            <DialogTitle className='text-foreground'>{title}</DialogTitle>
           )}
           {description && <DialogDescription>{description}</DialogDescription>}
         </DialogHeader>

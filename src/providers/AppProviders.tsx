@@ -1,4 +1,5 @@
 import type { PropsWithChildren } from 'react';
+import { ThemeProvider } from 'next-themes';
 import { LayoutWrapper } from '@/components/Layout';
 import { UserInformationProvider } from '@/context/user-information';
 import { DialogProvider } from '@/context/dialog';
@@ -15,11 +16,18 @@ const queryClient = new QueryClient({
 export function AppProviders({ children }: PropsWithChildren) {
   return (
     <QueryClientProvider client={queryClient}>
-      <UserInformationProvider>
-        <DialogProvider>
-          <LayoutWrapper>{children}</LayoutWrapper>
-        </DialogProvider>
-      </UserInformationProvider>
+      <ThemeProvider
+        attribute='class'
+        defaultTheme='dark'
+        enableSystem={false}
+        disableTransitionOnChange
+      >
+        <UserInformationProvider>
+          <DialogProvider>
+            <LayoutWrapper>{children}</LayoutWrapper>
+          </DialogProvider>
+        </UserInformationProvider>
+      </ThemeProvider>
     </QueryClientProvider>
   );
 }

@@ -58,14 +58,14 @@ export function USDQuoteForm() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(handleSetUSDBRLQuote)}
-        className='dark flex items-end justify-between mt-4'
+        className='flex items-end justify-between mt-4'
       >
         <FormField
           control={form.control}
           name='usdBrlQuote'
           render={({ field }) => (
             <FormItem>
-              <FormLabel className='dark:text-white font-bold'>
+              <FormLabel className='text-foreground font-bold'>
                 Valor (BRL)
               </FormLabel>
               <FormControl>
@@ -74,7 +74,7 @@ export function USDQuoteForm() {
                   {...field}
                   onChange={handleValueChange}
                   value={displayValue}
-                  className='dark:text-white w-32 max-w-32'
+                  className='text-foreground w-32 max-w-32'
                 />
               </FormControl>
               <FormMessage />

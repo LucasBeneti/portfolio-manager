@@ -76,13 +76,13 @@ export function ObjectivesForm() {
 
   return (
     <section className='flex flex-col gap-4 mb-12'>
-      <h2 className='dark:text-white text-2xl font-black'>Minhas metas</h2>
-      <p className='dark:text-gray-400'>
+      <h2 className='text-foreground text-2xl font-black'>Minhas metas</h2>
+      <p className='text-muted-foreground'>
         O objetivo aqui é setar as % de quanto e do que ela será composta.
       </p>
 
       <section className='flex gap-6'>
-        <p className='text-xl font-bold dark:text-white'>Total alocado</p>
+        <p className='text-xl font-bold text-foreground'>Total alocado</p>
         <p
           className={`text-xl font-bold ${
             isTotalAllocationInvalid ? 'text-red-400' : 'text-white'
@@ -111,7 +111,7 @@ export function ObjectivesForm() {
           const [key, value] = el;
           return (
             <div
-              className='dark:text-white w-full flex flex-col gap-4 md:flex-row md:justify-between'
+              className='text-foreground w-full flex flex-col gap-4 md:flex-row md:justify-between'
               key={`${key}_${index}`}
             >
               <Label htmlFor={key} className='font-bold text-lg md:text-md'>
@@ -128,7 +128,7 @@ export function ObjectivesForm() {
                     step={1}
                     value={field.value}
                     onValueChange={field.onChange}
-                    className='dark flex-1 min-w-0'
+                    className='flex-1 min-w-0'
                   />
                 )}
               />

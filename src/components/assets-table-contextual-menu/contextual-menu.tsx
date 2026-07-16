@@ -23,10 +23,10 @@ export function AssetsTableContextualMenu({ asset }: { asset: Asset }) {
           <MoreHorizontal className='h-4 w-4' />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align='end' className='dark'>
+      <DropdownMenuContent align='end'>
         <DropdownMenuItem
           onClick={() => handleEditAsset(asset)}
-          className='dark:text-white'
+          className='text-foreground'
         >
           Editar
         </DropdownMenuItem>

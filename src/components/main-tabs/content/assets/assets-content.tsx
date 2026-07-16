@@ -10,7 +10,7 @@ export function AssetsContent() {
     <section className='flex flex-col md:flex-row gap-4'>
       <section className='md:max-w-[75%]'>
         <section className='flex justify-between items-center'>
-          <p className='dark:text-white text-2xl font-black'>Seus ativos:</p>
+          <p className='text-foreground text-2xl font-black'>Seus ativos:</p>
           <Button onClick={() => handleOpenNewAssetDialog()}>
             <Plus />
             Adicionar ativo

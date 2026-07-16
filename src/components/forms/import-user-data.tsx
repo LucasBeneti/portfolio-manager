@@ -208,11 +208,11 @@ export function ImportExportUserDataForm() {
               </>
             )}
           </Button>
-          <p className='dark dark:text-white text-center'>Ou</p>
+          <p className='text-foreground text-center'>Ou</p>
           <Button
             type='button'
             variant='secondary'
-            className='dark'
+            className='flex flex-col gap-2'
             onClick={handleOpenExportDataDialog}
           >
             <Download className='w-4 h-4 mr-2' />

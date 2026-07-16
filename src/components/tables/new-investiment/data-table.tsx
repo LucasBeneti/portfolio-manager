@@ -25,7 +25,7 @@ export function InvestmentTable({ data }: { data?: Array<InvestmentData> }) {
 
   return (
     <div className='space-y-4'>
-      <div className='rounded-md border dark overflow-x-auto'>
+      <div className='rounded-sm border-2 overflow-x-auto'>
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -43,13 +43,13 @@ export function InvestmentTable({ data }: { data?: Array<InvestmentData> }) {
               </TableRow>
             ))}
           </TableHeader>
-          <TableBody className='dark'>
+          <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && 'selected'}
-                  className='dark hover:bg-muted/50 dark:text-white'
+                   className='hover:bg-muted/50 text-foreground'
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
@@ -62,10 +62,10 @@ export function InvestmentTable({ data }: { data?: Array<InvestmentData> }) {
                 </TableRow>
               ))
             ) : (
-              <TableRow className='dark'>
+              <TableRow>
                 <TableCell
                   colSpan={columns.length}
-                  className='h-24 text-center dark:text-white'
+                   className='h-24 text-center text-foreground'
                 >
                   Nenhum resultado encontrado.
                 </TableCell>
