@@ -56,3 +56,9 @@ O app pode ser visto [aqui](https://portfolio-manager-hgak.onrender.com)
   - [ ] a margem lateral e a fonte no mobile está um pouco pequena, rever isso
 - [ ] Ícone do menu side bar está um pouco pequeno no mobile, deve ficar melhor ele maior
 - [ ] na aba de meus ativos, seria interessanter ter implementado um resuldo das % que temos alocado no momento, para o usuário entender como que está, comparado à onde quer chegar
+- [ ] arrumar a UI das metas, porque está larga demais, não deveria tomar toda a largura do app
+- [ ] rever de posicionar o menu, não sei se tem sentido do jeito que tá hoje e a UI poderia ser mais limpa
+  - [ ] validar se mantém aquele esquema de drawer lateral, talvez tenha alguma forma de simplificar
+  - [ ] adicionar mcp do chrome dev tools pra ver se o modelo consegue ter uma ideia melhor do que fazer e como melhorar
+  - [ ] ajustar a parte de ativos/carteira também, está com uma parte esquisita lá
+    - [ ] adicionar filtros na tabela para consequir encontrar os tipos de assets mais facilmente

@@ -6,7 +6,7 @@ export function MainTabs() {
   return (
     <Tabs
       defaultValue='assets'
-      className='w-full md:w-[80%] flex flex-col gap-4 mt-4'
+      className='w-full md:w-[80%] mx-auto max-w-5xl flex flex-col gap-4 mt-4'
     >
       <TabsList className='w-full md:max-w-[400px]'>
         <TabsTrigger value='assets'>Ativos</TabsTrigger>

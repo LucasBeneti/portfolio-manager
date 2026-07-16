@@ -66,7 +66,13 @@ export function ObjectivesForm() {
 
   const isTotalAllocationInvalid = totalAllocation > 100;
   const isTotalAllocationLessThan100 = totalAllocation < 100;
-  function handleResetObjectives() {}
+  function handleResetObjectives() {
+    if (objectives) {
+      reset(formatUserObjectivesToSlider(objectives));
+    } else {
+      reset();
+    }
+  }
 
   return (
     <section className='flex flex-col gap-4 mb-12'>
@@ -122,7 +128,7 @@ export function ObjectivesForm() {
                     step={1}
                     value={field.value}
                     onValueChange={field.onChange}
-                    className='dark max-w-[500px]'
+                    className='dark flex-1 min-w-0'
                   />
                 )}
               />

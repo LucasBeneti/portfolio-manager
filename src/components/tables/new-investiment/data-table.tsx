@@ -25,7 +25,7 @@ export function InvestmentTable({ data }: { data?: Array<InvestmentData> }) {
 
   return (
     <div className='space-y-4'>
-      <div className='rounded-md border dark'>
+      <div className='rounded-md border dark overflow-x-auto'>
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (

@@ -6,7 +6,7 @@ export function NewInvestimentContent() {
   const { investmentSuggestion } = useUserInformation();
 
   return (
-    <section className='dark mb-6'>
+    <section className='dark mb-6 max-w-5xl mx-auto'>
       <h3 className='text-2xl dark:text-white font-extrabold'>
         Sugestões para um novo aporte.
       </h3>
