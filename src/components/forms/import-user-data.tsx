@@ -24,7 +24,7 @@ const fileSchema = z.object({
     .refine((files) => files?.length > 0, 'Please select a file')
     .refine(
       (files) => files?.[0]?.size <= 5 * 1024 * 1024, // 5MB limit
-      'File size must be less than 5MB'
+      'File size must be less than 5MB',
     )
     .refine((files) => {
       const file = files?.[0];
@@ -99,7 +99,7 @@ export function ImportExportUserDataForm() {
   const removeFile = () => {
     setSelectedFile(null);
     const fileInput = document.getElementById(
-      'file-upload'
+      'file-upload',
     ) as HTMLInputElement;
     if (fileInput) {
       fileInput.value = '';
@@ -212,7 +212,7 @@ export function ImportExportUserDataForm() {
           <Button
             type='button'
             variant='secondary'
-            className='flex flex-col gap-2'
+            className='flex flex-row gap-2'
             onClick={handleOpenExportDataDialog}
           >
             <Download className='w-4 h-4 mr-2' />

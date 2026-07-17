@@ -6,7 +6,7 @@ export default function AssetsTable() {
   const { assets } = useUserInformation();
 
   return (
-    <div className='text-foreground container mx-auto py-4'>
+    <div className='text-foreground w-full py-4'>
       <DataTable columns={columns} data={assets || []} />
     </div>
   );

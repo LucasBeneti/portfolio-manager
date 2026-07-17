@@ -8,7 +8,7 @@ export function AssetsContent() {
   const { handleOpenNewAssetDialog } = useDialogContext();
   return (
     <section className='flex flex-col md:flex-row gap-4'>
-      <section className='md:max-w-[75%]'>
+      <section className='flex-1 min-w-0'>
         <section className='flex justify-between items-center'>
           <p className='text-foreground text-2xl font-black'>Seus ativos:</p>
           <Button onClick={() => handleOpenNewAssetDialog()}>
