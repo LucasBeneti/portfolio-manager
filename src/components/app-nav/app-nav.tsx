@@ -13,9 +13,9 @@ import { ThemeToggle } from '@/components/theme-toggle/theme-toggle';
 import { useIsMobile } from '@/hooks/use-mobile';
 
 const navLinks = [
-  { to: '/', label: 'Home' },
+  { to: '/', label: 'Início' },
   { to: '/portfolio', label: 'Carteira' },
-  { to: '/about', label: 'About' },
+  { to: '/about', label: 'Sobre' },
 ];
 
 function NavLinks({ mobile }: { mobile?: boolean }) {
