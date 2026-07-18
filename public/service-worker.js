@@ -3,11 +3,9 @@ const CACHE_NAME = 'portfolio-v1';
 // lista de arquivos que serão pre-cached, garantindo que estão disponíveis offline
 const urlsToCache = [
   '/',
-  'dist/assets/index-B-x_ffpT.css',
   '/manifest.json',
   '/images/portfolio-icon-192-192.png',
   '/images/portfolio-icon-512-512.png',
-  // Add other static assets your app needs
 ];
 
 // Install event - cache resources
