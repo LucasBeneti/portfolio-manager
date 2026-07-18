@@ -152,7 +152,7 @@ function ChartFooterCategoryData(props: ChartFooterCategoryDataProps) {
         const isOverObjective =
           objectives && objectives[i.investment] < percentInvested;
         return (
-          <span className='flex gap-1 items-center'>
+          <span className='flex gap-1 items-center' key={i.investment}>
             <span
               className={`w-3 h-3 rounded-xs ${CATEGORY_BADGE_COLOR[i.investment]?.styling}`}
             ></span>

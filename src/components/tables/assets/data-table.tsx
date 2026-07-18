@@ -1,7 +1,9 @@
 import {
   type ColumnDef,
+  type ColumnFiltersState,
   flexRender,
   getCoreRowModel,
+  getFilteredRowModel,
   useReactTable,
 } from '@tanstack/react-table';
 
@@ -17,20 +19,31 @@ import {
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  columnFilters?: ColumnFiltersState;
+  onColumnFiltersChange?: (
+    updater: ColumnFiltersState | ((prev: ColumnFiltersState) => ColumnFiltersState)
+  ) => void;
 }
 export function DataTable<TData, TValue>({
   columns,
   data,
+  columnFilters: externalColumnFilters,
+  onColumnFiltersChange: externalOnColumnFiltersChange,
 }: DataTableProps<TData, TValue>) {
   const table = useReactTable({
     data,
     columns,
+    state: {
+      columnFilters: externalColumnFilters,
+    },
+    onColumnFiltersChange: externalOnColumnFiltersChange,
     initialState: {
       columnVisibility: {
         id: false,
       },
     },
     getCoreRowModel: getCoreRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
   });
 
   return (

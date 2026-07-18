@@ -13,6 +13,7 @@ export const columns: ColumnDef<Asset>[] = [
   {
     accessorKey: 'category',
     header: () => <div className='mx-3 text-left'>Categoria</div>,
+    filterFn: 'equalsString',
     cell: ({ row }) => {
       const category = row.getValue('category') as Category;
 
