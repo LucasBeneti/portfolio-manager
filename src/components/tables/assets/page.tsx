@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/select';
 import { columns } from './columns';
 import { DataTable } from './data-table';
+import { useAssetsActions } from '@/hooks/use-assets-actions';
 import { useUserInformation } from '@/context/user-information';
 
 const CATEGORY_LABELS: Record<string, string> = {
@@ -23,6 +24,7 @@ const CATEGORY_LABELS: Record<string, string> = {
 
 export default function AssetsTable() {
   const { assets } = useUserInformation();
+  const { handleEditAsset } = useAssetsActions();
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
   const categoryFilter =
@@ -60,6 +62,7 @@ export default function AssetsTable() {
         data={assets || []}
         columnFilters={columnFilters}
         onColumnFiltersChange={setColumnFilters}
+        onRowDoubleClick={handleEditAsset}
       />
     </div>
   );

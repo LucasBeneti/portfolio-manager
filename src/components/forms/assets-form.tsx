@@ -75,13 +75,13 @@ export function AssetsForm(props: AssetsFormProps) {
     } catch (error) {
       console.error(
         'Something wen wrong while tryign to submit the form.',
-        error
+        error,
       );
     }
   }
 
   const disableQuantityField = Boolean(
-    form.watch('category') === 'fixed-income-br'
+    form.watch('category') === 'fixed-income-br',
   );
 
   return (
@@ -181,7 +181,7 @@ export function AssetsForm(props: AssetsFormProps) {
               Cancelar
             </Button>
           </DialogClose>
-          <Button type='submit'>Submit</Button>
+          <Button type='submit'>Salvar</Button>
         </DialogFooter>
       </form>
     </Form>

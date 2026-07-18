@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import {
   type ColumnDef,
   type ColumnFiltersState,
@@ -15,6 +16,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -23,13 +25,18 @@ interface DataTableProps<TData, TValue> {
   onColumnFiltersChange?: (
     updater: ColumnFiltersState | ((prev: ColumnFiltersState) => ColumnFiltersState)
   ) => void;
+  onRowDoubleClick?: (data: TData) => void;
 }
 export function DataTable<TData, TValue>({
   columns,
   data,
   columnFilters: externalColumnFilters,
   onColumnFiltersChange: externalOnColumnFiltersChange,
+  onRowDoubleClick,
 }: DataTableProps<TData, TValue>) {
+  const isMobile = useIsMobile();
+  const lastTouchRef = useRef(0);
+
   const table = useReactTable({
     data,
     columns,
@@ -73,6 +80,25 @@ export function DataTable<TData, TValue>({
               <TableRow
                 key={row.id}
                 data-state={row.getIsSelected() && 'selected'}
+                onDoubleClick={
+                  onRowDoubleClick && !isMobile
+                    ? () => onRowDoubleClick(row.original)
+                    : undefined
+                }
+                onTouchStart={
+                  onRowDoubleClick && isMobile
+                    ? (e) => {
+                        const now = Date.now();
+                        if (now - lastTouchRef.current < 300) {
+                          e.preventDefault();
+                          onRowDoubleClick(row.original);
+                          lastTouchRef.current = 0;
+                        } else {
+                          lastTouchRef.current = now;
+                        }
+                      }
+                    : undefined
+                }
               >
                 {row.getVisibleCells().map((cell) => (
                   <TableCell key={cell.id}>
