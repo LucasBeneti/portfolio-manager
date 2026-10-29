@@ -1,0 +1,14 @@
+// Configuração do deploy na Cloudflare Workers (static assets)
+// https://developers.cloudflare.com/workers/static-assets/
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "portfolio-manager",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./dist",
+    // SPA fallback: qualquer rota que não casar com um arquivo do dist
+    // (ex: /about, /portfolio) retorna o index.html, e o TanStack Router
+    // resolve a navegação do lado do cliente. Sem isso, essas rotas dão 404.
+    "not_found_handling": "single-page-application"
+  }
+}
